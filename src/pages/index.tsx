@@ -13,7 +13,7 @@ const Home: NextPage = () => {
                 <title>SwiftSell - Deine E-Commerce Platform</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className="h-screen w-full">
+            <main className="h-screen w-full overscroll-none">
                 <Navbar />
                 <div className="absolute h-fit w-full bg-gradient-to-b from-slate-100 to-slate-200 ">
                     <section
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
                         </div>
                     </section>
 
-                    <section className="p-10">
+                    <section className="sm:p-5 md:p-8 lg:p-10">
                         <div className="flex h-fit w-full flex-col justify-center overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-700 scrollbar-thumb-rounded">
                             <div className="sticky left-0">
                                 <h1 className="w-full text-sm text-slate-700">
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
                             </div>
 
                             {/*FIXME: Make Container Grabbable/*/}
-                            <div className="mb-3 flex gap-20">
+                            <div className="mb-3 flex sm:gap-5 md:gap-20 lg:gap-24">
                                 {data?.map((shop) => {
                                     return (
                                         <ShopCard

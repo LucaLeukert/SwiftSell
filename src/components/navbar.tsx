@@ -25,7 +25,7 @@ export const Navbar: NextPage = () => {
                     </li>
                     <li>
                         {isSignedIn ? (
-                            <div className="avatar hover:bg-transparent">
+                            <div className="over:bg-transparent avatar">
                                 {user?.profileImageUrl ? (
                                     <Image
                                         className="rounded-full"
@@ -47,12 +47,14 @@ export const Navbar: NextPage = () => {
                             </div>
                         ) : (
                             <div className="hover:bg-transparent">
-                                <div className="flex h-full w-full justify-center text-center hover:underline">
+                                <div className="flex h-full w-full justify-center text-center hover:underline sm:hidden md:hidden lg:flex">
                                     <SignInButton>Einloggen</SignInButton>
                                 </div>
-                                <button className="btn ml-4 rounded-full">
-                                    Kostenlos Testen
-                                </button>
+                                <div className="btn ml-4 rounded-full">
+                                    <SignInButton>
+                                        Kostenlos Testen
+                                    </SignInButton>
+                                </div>
                             </div>
                         )}
                     </li>

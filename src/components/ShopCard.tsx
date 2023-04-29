@@ -23,10 +23,10 @@ export const ShopCard = ({
 
     return (
         <div
-            className={`card-normal card w-[${imageWidth}px] ${indicator} flex-shrink-0 bg-slate-600 shadow`}
+            className={`card-normal card w-[${imageWidth}px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
         >
             {hasBadge && badgeContent && (
-                <span className="badge-accent badge indicator-item text-slate-200 shadow">
+                <span className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">
                     {badgeContent}
                 </span>
             )}
