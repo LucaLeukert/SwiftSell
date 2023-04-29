@@ -3,7 +3,7 @@ import Image from "next/image";
 import { SignInButton, useUser } from "@clerk/nextjs";
 
 export const Navbar: NextPage = () => {
-    const { user, isSignedIn } = useUser();
+    const { user, isSignedIn, isLoaded } = useUser();
 
     return (
         <div className="navbar sticky top-0 z-20 h-20 bg-base-100 px-5 shadow-xl">
@@ -24,37 +24,43 @@ export const Navbar: NextPage = () => {
                         </div>
                     </li>
                     <li>
-                        {isSignedIn ? (
-                            <div className="over:bg-transparent avatar">
-                                {user?.profileImageUrl ? (
-                                    <Image
-                                        className="rounded-full"
-                                        src={user?.profileImageUrl}
-                                        alt={"Profile picture"}
-                                        width={48}
-                                        height={48}
-                                    />
-                                ) : (
-                                    <div className="placeholder avatar">
-                                        <div className="w-[48px] rounded bg-neutral-focus text-neutral-content">
-                                            <span className="text-2xl">
-                                                {user?.firstName?.at(0)}{" "}
-                                                {user?.lastName?.at(0)}
-                                            </span>
+                        {isLoaded ? (
+                            isSignedIn ? (
+                                <div className="over:bg-transparent avatar">
+                                    {user?.profileImageUrl ? (
+                                        <Image
+                                            className="rounded-full"
+                                            src={user?.profileImageUrl}
+                                            alt={"Profile picture"}
+                                            width={48}
+                                            height={48}
+                                        />
+                                    ) : (
+                                        <div className="placeholder avatar">
+                                            <div className="w-[48px] rounded-full bg-neutral-focus text-neutral-content">
+                                                <span className="text-2xl">
+                                                    {user?.firstName?.at(0)}{" "}
+                                                    {user?.lastName?.at(0)}
+                                                </span>
+                                            </div>
                                         </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="hover:bg-transparent">
+                                    <div className="flex h-full w-full justify-center text-center hover:underline sm:hidden md:hidden lg:flex">
+                                        <SignInButton>Einloggen</SignInButton>
                                     </div>
-                                )}
-                            </div>
+                                    <div className="btn ml-4 rounded-full">
+                                        <SignInButton>
+                                            Kostenlos Testen
+                                        </SignInButton>
+                                    </div>
+                                </div>
+                            )
                         ) : (
-                            <div className="hover:bg-transparent">
-                                <div className="flex h-full w-full justify-center text-center hover:underline sm:hidden md:hidden lg:flex">
-                                    <SignInButton>Einloggen</SignInButton>
-                                </div>
-                                <div className="btn ml-4 rounded-full">
-                                    <SignInButton>
-                                        Kostenlos Testen
-                                    </SignInButton>
-                                </div>
+                            <div className="placeholder avatar">
+                                <div className="w-[48px] rounded-full bg-neutral-focus text-neutral-content" />
                             </div>
                         )}
                     </li>

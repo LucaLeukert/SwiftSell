@@ -22,7 +22,7 @@ export const ShopCard = ({
     badgeContent?: string;
 }) => {
     const [images, setImages] = useState<string[]>([]);
-    const [width, setWidth] = useState(imageWidth);
+    /*const [width, setWidth] = useState(imageWidth);*/
     const indicator = hasBadge ? "indicator" : "";
     const router = useRouter();
 
@@ -35,13 +35,13 @@ export const ShopCard = ({
         }
     }, [shop?.images]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         setWidth(imageWidth);
-    }, [imageWidth]);
+    }, [imageWidth]);*/
 
     return (
         <div
-            className={`card-normal card w-[${width}px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
+            className={`card-normal card w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
         >
             {hasBadge && badgeContent && (
                 <span className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">
