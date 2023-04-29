@@ -18,6 +18,7 @@ export const Item = ({
     hasBadge?: boolean;
     badgeContent?: string;
 }) => {
+    const [width, setWidth] = useState(imageWidth);
     const [images, setImages] = useState<string[]>([]);
     const formatter = new Intl.NumberFormat("de-DE", {
         style: "currency",
@@ -34,9 +35,13 @@ export const Item = ({
         }
     }, [item?.images]);
 
+    useEffect(() => {
+        setWidth(imageWidth);
+    }, [imageWidth]);
+
     return (
         <div
-            className={`card-normal card w-[${imageWidth}px] ${indicator} bg-slate-600 shadow-xl`}
+            className={`card-normal card w-[${width}px] ${indicator} bg-slate-600 shadow-xl`}
         >
             {hasBadge && badgeContent && (
                 <span className="badge-accent badge indicator-item text-slate-200 shadow">
