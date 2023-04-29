@@ -1,15 +1,37 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
 generator client {
     provider = "prisma-client-js"
 }
 
-model Example {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Item {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name        String @db.VarChar(255)
+    description String @db.VarChar(255)
+    price       Float
+    images      Json
+    sellerID    String
+
+    @@index([sellerID])
+}
+
+model FeaturedShops {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name        String @db.VarChar(255)
+    description String @db.VarChar(255)
+    url         String @db.VarChar(255)
+    images      Json
+    ownerID     String
+
+    @@index([ownerID])
 }
