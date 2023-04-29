@@ -1,8 +1,12 @@
 import { Carousel } from "~/components/carousel";
 import { type RouterOutputs } from "~/utils/api";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export type FeaturedShop = RouterOutputs["featuredShops"]["getAll"][number];
+export type JsonImages = {
+    images: string[];
+};
 
 export const ShopCard = ({
     shop,
@@ -17,9 +21,18 @@ export const ShopCard = ({
     hasBadge?: boolean;
     badgeContent?: string;
 }) => {
-    const images: unknown = shop.images;
+    const [images, setImages] = useState<string[]>([]);
     const indicator = hasBadge ? "indicator" : "";
     const router = useRouter();
+
+    useEffect(() => {
+        if (shop?.images && typeof shop?.images === "object") {
+            const json = shop?.images as unknown as JsonImages;
+            console.log(json.images);
+
+            setImages(json.images);
+        }
+    }, [shop?.images]);
 
     return (
         <div
@@ -34,7 +47,8 @@ export const ShopCard = ({
                 id={`carousel-${shop.id}`}
                 width={imageWidth}
                 height={imageHeight}
-                images={images.images}
+                /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+                images={images}
             />
 
             <div className="card-body">

@@ -1,5 +1,7 @@
 import { Carousel } from "~/components/carousel";
 import { type RouterOutputs } from "~/utils/api";
+import { useEffect, useState } from "react";
+import { type JsonImages } from "~/components/ShopCard";
 
 export type Item = RouterOutputs["item"]["getAll"][number];
 
@@ -16,13 +18,21 @@ export const Item = ({
     hasBadge?: boolean;
     badgeContent?: string;
 }) => {
+    const [images, setImages] = useState<string[]>([]);
     const formatter = new Intl.NumberFormat("de-DE", {
         style: "currency",
         currency: "EUR",
     });
-
-    const images: unknown = item.images;
     const indicator = hasBadge ? "indicator" : "";
+
+    useEffect(() => {
+        if (item?.images && typeof item?.images === "object") {
+            const json = item?.images as unknown as JsonImages;
+            console.log(json.images);
+
+            setImages(json.images);
+        }
+    }, [item?.images]);
 
     return (
         <div
@@ -37,7 +47,7 @@ export const Item = ({
                 id={`carousel-${item.id}`}
                 width={imageWidth}
                 height={imageHeight}
-                images={images.images}
+                images={images}
             />
 
             <div className="card-body">
