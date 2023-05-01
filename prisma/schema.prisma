@@ -13,25 +13,57 @@ model Item {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    name        String @db.VarChar(255)
-    description String @db.VarChar(255)
+    name        String  @db.VarChar(255)
+    description String  @db.VarChar(255)
+    category    String  @db.VarChar(255)
     price       Float
     images      Json
-    sellerID    String
+    Shop        Shop?   @relation(fields: [shopId], references: [id])
+    shopId      String?
 
-    @@index([sellerID])
+    @@index([shopId])
 }
 
-model FeaturedShops {
+model Shop {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    name        String @db.VarChar(255)
-    description String @db.VarChar(255)
-    url         String @db.VarChar(255)
+    name        String  @unique @db.VarChar(255)
+    description String  @db.Text
+    url         String  @unique @db.VarChar(255)
+    ownerID     String
+    featured    Boolean @default(false)
+
+    items    Item[]
+    shopInfo ShopInfo?
+
+    @@index([ownerID])
+}
+
+model ShopInfo {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    heroImage String @db.VarChar(255)
+    heroText  String @db.VarChar(255)
+
+    shop   Shop   @relation(fields: [shopId], references: [id])
+    shopId String @unique
+}
+
+model ShopCard {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name        String  @unique @db.VarChar(255)
+    description String  @db.VarChar(255)
+    url         String  @db.VarChar(255)
     images      Json
     ownerID     String
+    featured    Boolean @default(false)
 
     @@index([ownerID])
 }

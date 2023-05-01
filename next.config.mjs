@@ -16,10 +16,10 @@ const config = {
    */
   i18n: {
     locales: ["en"],
-    defaultLocale: "en",
+    defaultLocale: "en"
   },
   images: {
-    domains: ['images.clerk.dev'],
-  },
+    domains: ["images.clerk.dev"]
+  }
 };
 export default config;

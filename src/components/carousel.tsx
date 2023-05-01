@@ -13,7 +13,7 @@ export const Carousel = ({
 }) => {
     return (
         <figure>
-            <div className="carousel w-full">
+            <div className="carousel w-full overflow-hidden">
                 {images.map((image, index) => {
                     let toIndex;
                     let fromIndex;
@@ -26,6 +26,7 @@ export const Carousel = ({
 
                     return (
                         <CarouselItem
+                            id={id}
                             key={`${id}-item-${index}`}
                             width={width}
                             height={height}
@@ -33,6 +34,8 @@ export const Carousel = ({
                             fromItem={`${id}-slide-${fromIndex}`}
                             currentItem={`${id}-slide-${index}`}
                             toItem={`${id}-slide-${toIndex}`}
+                            amount={images}
+                            currentIndex={index}
                         />
                     );
                 })}
@@ -42,19 +45,25 @@ export const Carousel = ({
 };
 
 export const CarouselItem = ({
+    id,
     width,
     height,
     image,
     fromItem,
     currentItem,
     toItem,
+    amount,
+    currentIndex,
 }: {
+    id: string;
     width: number;
     height: number;
     image: string;
     fromItem: string;
     currentItem: string;
     toItem: string;
+    amount: string[];
+    currentIndex: number;
 }) => {
     return (
         <div className="carousel-item relative w-full" id={currentItem}>
@@ -65,14 +74,40 @@ export const CarouselItem = ({
                 height={height}
                 className="shadow-b rounded-t-xl"
             />
-            <div className="absolute left-2 right-2 top-1/2 flex -translate-y-1/2 transform justify-between">
-                <a href={`#${fromItem}`} className="btn-xs btn-circle btn">
-                    ❮
-                </a>
-                <a href={`#${toItem}`} className="btn-xs btn-circle btn">
-                    ❯
-                </a>
-            </div>
+            {amount.length > 1 && (
+                <>
+                    <div className="absolute left-2 right-2 top-1/2 flex -translate-y-1/2 transform justify-between">
+                        <a
+                            href={`#${fromItem}`}
+                            className="btn-xs btn-circle btn"
+                        >
+                            ❮
+                        </a>
+                        <a
+                            href={`#${toItem}`}
+                            className="btn-xs btn-circle btn"
+                        >
+                            ❯
+                        </a>
+                    </div>
+                    <div className="absolute bottom-0 z-10 w-full translate-y-2 text-center text-[30px] font-bold text-slate-100">
+                        {amount.map((_, index) => {
+                            const textColor =
+                                index === currentIndex
+                                    ? "text-cyan-600"
+                                    : "text-slate-600";
+                            return (
+                                <span
+                                    key={`${id}-${index}`}
+                                    className={`mr-1 ${textColor}`}
+                                >
+                                    •
+                                </span>
+                            );
+                        })}
+                    </div>
+                </>
+            )}
         </div>
     );
 };
