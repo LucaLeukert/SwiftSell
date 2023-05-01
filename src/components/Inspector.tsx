@@ -41,16 +41,19 @@ export const Inspector = (props: {
                     return (
                         <div className="form-group" key={index}>
                             <label>{value.name}</label>
+
                             <DebounceInput
                                 debounceTimeout={500}
                                 type="text"
                                 className="form-control"
                                 placeholder={value.name}
+                                /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                 value={props.layoutBlock?.data[key]}
                                 onChange={(e) => {
                                     const layoutBlock = props.layoutBlock;
                                     if (!layoutBlock) return;
 
+                                    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                     layoutBlock.data[key] = e.target.value;
                                     props.onChangeBlockData(layoutBlock);
                                 }}
@@ -66,11 +69,13 @@ export const Inspector = (props: {
                                 type="color"
                                 className="form-control"
                                 placeholder={value.name}
+                                /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                 value={props.layoutBlock?.data[key]}
                                 onChange={(e) => {
                                     const layoutBlock = props.layoutBlock;
                                     if (!layoutBlock) return;
 
+                                    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                     layoutBlock.data[key] = e.target.value;
                                     props.onChangeBlockData(layoutBlock);
                                 }}
@@ -84,11 +89,13 @@ export const Inspector = (props: {
                                 <input
                                     type={"checkbox"}
                                     className="form-check-input"
+                                    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                     value={props.layoutBlock?.data[key]}
                                     onChange={(e) => {
                                         const layoutBlock = props.layoutBlock;
                                         if (!layoutBlock) return;
 
+                                        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                         layoutBlock.data[key] = e.target.value;
                                         props.onChangeBlockData(layoutBlock);
                                     }}

@@ -24,6 +24,7 @@ export const BlockPreview = (props: {
                     props.onPushBlock({
                         blockId: props.block.blockId,
                         uuid: uuid(),
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                         data: props.block.defaultData,
                     });
                 }}

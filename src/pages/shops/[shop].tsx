@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { Navbar } from "~/components/navbar";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const ShopView = () => {
     const router = useRouter();
