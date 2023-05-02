@@ -1,25 +1,25 @@
 import { type LayoutBlock } from "~/utils/handlebars";
 import { v4 as uuid } from "uuid";
 import { type Block } from "~/views/blocks";
+import Image from "next/image";
 
 export const BlockPreview = (props: {
     block: Block;
     onPushBlock: (block: LayoutBlock) => void;
 }) => {
-    /*const [handlebar] = useState(
-        renderPreview(props.block.hbs, props.block.defaultData)
-    );*/
-
     return (
-        <div className="block-entry card card-body mb-2 p-2 shadow-lg">
-            <img
-                src={props.block.previewImageUrl}
-                alt={props.block.name}
-                className="img-fluid"
-            />
-            {/*<iframe srcDoc={handlebar} />*/}
+        <div className={`card-compact rounded-xl border pt-2 shadow-xl`}>
+            <figure>
+                <Image
+                    src={props.block.previewImageUrl}
+                    alt={props.block.name}
+                    className="img-fluid mx-auto"
+                    width={450}
+                    height={300}
+                />
+            </figure>
             <div
-                className="prompt"
+                className="card-body"
                 onClick={() => {
                     props.onPushBlock({
                         blockId: props.block.blockId,
@@ -29,9 +29,11 @@ export const BlockPreview = (props: {
                     });
                 }}
             >
-                <div className="prompt-inside">
-                    <div>{props.block.name}</div>
-                    <button className="btn-outline-light btn-sm btn m-2">
+                <div className="flex items-center justify-between">
+                    <h1 className="h-fit text-xl font-bold">
+                        {props.block.name}
+                    </h1>
+                    <button className="btn-accent btn-sm btn shadow">
                         Add block
                     </button>
                 </div>

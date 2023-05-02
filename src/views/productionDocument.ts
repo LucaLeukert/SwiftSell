@@ -19,9 +19,9 @@ const hbs = `
 </html>
 `;
 
-const previewDocument = {
+const productionDocument = {
     hbs,
     name: "Default Preview (Bootstrap 4.5)",
 };
 
-export default previewDocument;
+export default productionDocument;

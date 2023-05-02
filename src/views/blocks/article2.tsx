@@ -9,16 +9,28 @@ const hbs = `
     </div>
     <div class="row">
       <div class="col-sm-6 col-md-4 item">
+        <a href="#">
+            <img class="img-fluid" src="{{image1}}" />
+        </a>
         <h3 class="name">{{articleTitle1}}</h3>
         <p class="description">{{text1}}</p>
+        <button>In den Warenkorb - {{price1}}</button>
       </div>
       <div class="col-sm-6 col-md-4 item">
+        <a href="#">
+            <img class="img-fluid" src="{{image2}}" />
+        </a>
         <h3 class="name">{{articleTitle2}}</h3>
         <p class="description">{{text2}}</p>
+        <button>In den Warenkorb - {{price2}}</button>
       </div>
       <div class="col-sm-6 col-md-4 item">
+        <a href="#">
+            <img class="img-fluid" src="{{image3}}" />
+        </a>
         <h3 class="name">{{articleTitle3}}</h3>
         <p class="description">{{text3}}</p>
+        <button>In den Warenkorb - {{price3}}</button>
       </div>
     </div>
   </div>
@@ -29,11 +41,14 @@ const block = {
     hbs,
     name: "Article #2",
     blockId: "article2",
-    previewImageUrl: "https://i.imgur.com/xljS5RC.png",
-    category: "article",
+    previewImageUrl: "https://i.imgur.com/6QUsWtK.png",
+    category: "Artikel",
     defaultData: {
         title: "Sample section",
         description: "Lorem ipsum dolor sit amet.",
+        image1: "https://via.placeholder.com/350x350",
+        image2: "https://via.placeholder.com/350x350",
+        image3: "https://via.placeholder.com/350x350",
         articleTitle1: "Hello World",
         articleTitle2: "Hello World",
         articleTitle3: "Hello World",
@@ -49,6 +64,18 @@ const block = {
         description: {
             type: "string",
             name: "Section description",
+        },
+        image1: {
+            type: "string",
+            name: "Url to image #1",
+        },
+        image2: {
+            type: "string",
+            name: "Url to image #2",
+        },
+        image3: {
+            type: "string",
+            name: "Url to image #3",
         },
         articleTitle1: {
             type: "string",

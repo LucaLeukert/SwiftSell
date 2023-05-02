@@ -3,9 +3,12 @@
  * for Docker builds.
  */
 await import("./src/env.mjs");
+import transpile from "next-transpile-modules";
+
+const withTM = transpile((["react-icons"]))
 
 /** @type {import("next").NextConfig} */
-const config = {
+const config = withTM({
   reactStrictMode: true,
 
   /**
@@ -19,7 +22,7 @@ const config = {
     defaultLocale: "en"
   },
   images: {
-    domains: ["images.clerk.dev"]
-  }
-};
+    domains: ["images.clerk.dev", "i.imgur.com"]
+  },
+});
 export default config;

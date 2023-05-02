@@ -39,7 +39,7 @@ const block = {
     name: "Article #1",
     blockId: "article1",
     previewImageUrl: "https://i.imgur.com/6QUsWtK.png",
-    category: "article",
+    category: "Artikel",
     defaultData: {
         title: "Sample section",
         description: "Lorem ipsum dolor sit amet.",

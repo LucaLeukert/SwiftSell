@@ -44,15 +44,14 @@ export const itemRouter = createTRPCRouter({
                     message: "You are not the owner of this shop",
                 });
 
-            return ctx.prisma.item.create({
+            /*return ctx.prisma.item.create({
                 data: {
-                    sellerID: ctx.userId,
                     name: input.name,
                     description: input.description,
                     price: input.price,
                     images: jsonImages,
                     shopId: input.shopId,
                 },
-            });
+            });*/
         }),
 });

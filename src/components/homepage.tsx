@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { Item } from "~/components/Item";
 
 export const Homepage = () => {
-    const { data: shops } = api.featuredShops.getAll.useQuery();
+    const { data: shops } = api.shop.getFeatured.useQuery();
     const { data: items } = api.item.getAll.useQuery();
     const { isSignedIn } = useUser();
 

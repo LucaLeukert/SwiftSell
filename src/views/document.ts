@@ -6,6 +6,7 @@ const hbs = `
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title>Hello, world!</title>
+    <base target="_parent">
     <style>
         .drag-n-drop-placeholder {
             border: 2px dashed black; 
@@ -92,7 +93,7 @@ const hbs = `
     el.addEventListener('click', () => {
       window.top.postMessage({
         event: 'click',
-        blockId: el.getAttribute('visual-editor')
+        uuid: el.getAttribute('visual-editor')
       }, '*');
     })
   });
@@ -103,7 +104,7 @@ const hbs = `
 
 const document = {
     hbs,
-    name: 'Default (Bootstrap 4.5)'
-}
+    name: "Default (Bootstrap 4.5)",
+};
 
 export default document;
