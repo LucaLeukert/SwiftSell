@@ -3,7 +3,7 @@ import { type RouterOutputs } from "~/utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export type FeaturedShop = RouterOutputs["featuredShops"]["getAll"][number];
+export type FeaturedShop = RouterOutputs["shop"]["getFeatured"][number];
 export type JsonImages = {
     images: string[];
 };
@@ -27,13 +27,19 @@ export const ShopCard = ({
     const router = useRouter();
 
     useEffect(() => {
-        if (shop?.images && typeof shop?.images === "object") {
-            const json = shop?.images as unknown as JsonImages;
+        if (
+            shop.card &&
+            shop.card.images &&
+            typeof shop?.card.images === "object"
+        ) {
+            const json = shop?.card.images as unknown as JsonImages;
             console.log(json.images);
 
             setImages(json.images);
         }
-    }, [shop?.images]);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+    }, [shop?.card.images]);
 
     /*useEffect(() => {
         setWidth(imageWidth);
@@ -41,7 +47,7 @@ export const ShopCard = ({
 
     return (
         <div
-            className={`card-normal card w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
+            className={`card card-normal w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
         >
             {hasBadge && badgeContent && (
                 <span className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">

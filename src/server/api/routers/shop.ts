@@ -17,6 +17,15 @@ export const shopRouter = createTRPCRouter({
             orderBy: {
                 createdAt: "desc",
             },
+            select: {
+                card: true,
+                featured: true,
+                description: true,
+                id: true,
+                name: true,
+                url: true,
+                ownerID: false,
+            },
         });
     }),
     mutateShopInfo: protectedProcedure
