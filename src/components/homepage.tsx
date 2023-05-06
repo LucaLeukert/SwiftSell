@@ -137,7 +137,7 @@ export const Homepage = () => {
                             }}
                             className="w-30 btn-primary btn"
                         >
-                            Send Query
+                            Send Query (test)
                         </button>
                     </div>
                 )}
