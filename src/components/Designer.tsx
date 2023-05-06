@@ -29,7 +29,6 @@ export const Designer = () => {
     useEffect(() => {
         if (replaced) return;
         if (isLoading || !shop || !shop.info) return;
-        console.log("replacing");
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setLayoutBlocks(JSON.parse(JSON.stringify(shop.info.handlebar)));
@@ -41,7 +40,7 @@ export const Designer = () => {
         setRenderedLayout(renderHandlebar(layoutBlocks));
     }, [layoutBlocks]);
 
-    let handleMessage = (
+    const handleMessage = (
         event: MessageEvent<{
             event: string;
             newOrder?: string[];
@@ -63,7 +62,7 @@ export const Designer = () => {
         }
     };
 
-    handleMessage = handleMessage.bind(this);
+    /*handleMessage = handleMessage.bind(this);*/
 
     let handleRelayout = (newOrder: string[]) => {
         if (!layoutBlocks) return console.error("No layout blocks");
@@ -120,6 +119,7 @@ export const Designer = () => {
                         <Inspector
                             currentBlock={selectedLayoutBlock}
                             display={activeTab === 0}
+                            shopId={shop?.id as string}
                             onChangeBlockData={(action: {
                                 uuid: string;
                                 key: string;
@@ -217,10 +217,22 @@ export const Designer = () => {
                                 size == 1
                                     ? "w-full"
                                     : size == 2
-                                    ? "w-[1024px]"
+                                    ? `${
+                                          window.innerWidth < 1024
+                                              ? "w-full"
+                                              : "w-[1024px]"
+                                      }`
                                     : size == 3
-                                    ? "w-[768px]"
-                                    : "w-[375px]"
+                                    ? `${
+                                          window.innerWidth < 1024
+                                              ? "w-full"
+                                              : "w-[768px]"
+                                      }`
+                                    : `${
+                                          window.innerWidth < 1024
+                                              ? "w-full"
+                                              : "w-[375px]"
+                                      }`
                             }`}
                         >
                             <div className="absolute right-7 h-fit w-fit translate-y-[-42.5px]">
@@ -273,6 +285,14 @@ export const Designer = () => {
                                     />
                                 </button>
                             </div>
+
+                            <button
+                                onClick={() => {
+                                    console.log(layoutBlocks);
+                                }}
+                            >
+                                Log
+                            </button>
 
                             <iframe
                                 className="h-full w-full"

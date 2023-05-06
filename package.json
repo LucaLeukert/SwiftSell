@@ -8,7 +8,8 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "db-push": "prisma db push && prisma generate && cls"
+    "db-push": "prisma db push && prisma generate && cls",
+    "tailwind": "tailwindcss -i ./src/styles/globals.css -o ./public/tailwind.css --watch --minify"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.16.4",

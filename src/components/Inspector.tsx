@@ -2,10 +2,13 @@ import { type LayoutBlock } from "~/utils/handlebars";
 import blocks from "~/views/blocks";
 import { DebounceInput } from "react-debounce-input";
 import React from "react";
+import { api } from "~/utils/api";
+import { Item } from "@prisma/client";
 
 export const Inspector = (props: {
     display: boolean;
     currentBlock: LayoutBlock | undefined;
+    shopId: string;
     onChangeBlockData: (action: {
         uuid: string;
         key: string;
@@ -13,6 +16,10 @@ export const Inspector = (props: {
     }) => void;
     onDeleteBlock: (layoutBlock?: LayoutBlock) => void;
 }) => {
+    const { data: items, isLoading } = api.shop.queryShopItems.useQuery({
+        shopId: props.shopId,
+    });
+
     if (!props.display) {
         return null;
     }
@@ -51,7 +58,7 @@ export const Inspector = (props: {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     const value = config[key] as unknown as {
-                        name: "string" | "color" | "boolean";
+                        name: "string" | "color" | "boolean" | "item";
                         type: string | boolean;
                     };
 
@@ -86,10 +93,10 @@ export const Inspector = (props: {
                                     debounceTimeout={200}
                                     type="color"
                                     className="input-bordered input w-full bg-slate-100 text-slate-700 shadow"
-                                    placeholder={value.name}
                                     /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
                                     value={props.currentBlock?.data[key]}
                                     onChange={(e) => {
+                                        console.log(e.target.value);
                                         props.onChangeBlockData({
                                             uuid:
                                                 props.currentBlock?.uuid ?? "",
@@ -121,6 +128,37 @@ export const Inspector = (props: {
                                     />
                                     {value.name}
                                 </label>
+                            </div>
+                        );
+                    } else if (value.type === "item") {
+                        return (
+                            <div key={index}>
+                                <label>{value.name}</label>
+                                <select
+                                    onChange={(event) => {
+                                        console.log(event.target.value);
+                                    }}
+                                    className="select w-full bg-slate-100 text-slate-700"
+                                >
+                                    <option disabled selected>
+                                        Wähle ein Gegenstand für {value.name}{" "}
+                                        aus
+                                    </option>
+                                    {isLoading ? (
+                                        <option>Loading...</option>
+                                    ) : (
+                                        items?.items.map((item: Item) => {
+                                            return (
+                                                <option
+                                                    value={item.id}
+                                                    key={item.id}
+                                                >
+                                                    {item.name}
+                                                </option>
+                                            );
+                                        })
+                                    )}
+                                </select>
                             </div>
                         );
                     } else {

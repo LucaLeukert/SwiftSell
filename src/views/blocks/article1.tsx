@@ -1,6 +1,6 @@
 const hbs = `
 <div>
-  <div class="container">
+  <div class="container bg-red-700">
     <div class="row">
       <div class="col-12">
         <h2 class="text-center">{{title}}</h2>

@@ -1,7 +1,9 @@
 import { ShopCard } from "~/components/ShopCard";
-import { api } from "~/utils/api";
+import { api, client } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
+import {} from "@trpc/next";
 import { Item } from "~/components/Item";
+import React from "react";
 
 export const Homepage = () => {
     const { data: shops } = api.shop.getFeatured.useQuery();
@@ -125,6 +127,16 @@ export const Homepage = () => {
                             }}
                         >
                             Create Dummy Item
+                        </button>
+                        <button
+                            onClick={async () => {
+                                const shops =
+                                    await client.shop.getFeatured.query();
+                                console.log(shops);
+                            }}
+                            className="w-30 btn-primary btn"
+                        >
+                            Send Query
                         </button>
                     </div>
                 )}

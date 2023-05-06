@@ -3,6 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { Navbar } from "~/components/navbar";
 import { Homepage } from "~/components/homepage";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
     return (

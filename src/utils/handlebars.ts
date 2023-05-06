@@ -12,6 +12,8 @@ export type LayoutBlock = {
 };
 
 function renderHandlebar(layoutBlocks: LayoutBlock[]) {
+    const start = Date.now();
+    console.log("render");
     const innerHTML = layoutBlocks.reduce((acc, layoutBlock) => {
         const blockHbs = blocks.find(
             (block) => block.blockId === layoutBlock.blockId
@@ -28,9 +30,14 @@ function renderHandlebar(layoutBlocks: LayoutBlock[]) {
         return `${acc}${sectionHTML}`;
     }, ``);
 
-    return handlebars.compile(document.hbs)({
+    const documentTemplate = handlebars.compile(document.hbs)({
         content: innerHTML,
     });
+
+    const end = Date.now();
+    console.log(`Execution time: ${end - start} ms`);
+
+    return documentTemplate;
 }
 
 export const renderProduction = (layoutBlocks: LayoutBlock[]) => {

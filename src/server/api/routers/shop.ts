@@ -5,7 +5,7 @@ import {
 } from "~/server/api/trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { Prisma } from ".prisma/client";
+import { type Prisma } from ".prisma/client";
 
 export const shopRouter = createTRPCRouter({
     getFeatured: publicProcedure.query(({ ctx }) => {
@@ -102,6 +102,22 @@ export const shopRouter = createTRPCRouter({
             return ctx.prisma.shopCard.findUnique({
                 where: {
                     shopId: input.shopId,
+                },
+            });
+        }),
+    queryShopItems: publicProcedure
+        .input(
+            z.object({
+                shopId: z.string().min(1),
+            })
+        )
+        .query(({ ctx, input }) => {
+            return ctx.prisma.shop.findUnique({
+                where: {
+                    id: input.shopId,
+                },
+                select: {
+                    items: true,
                 },
             });
         }),
