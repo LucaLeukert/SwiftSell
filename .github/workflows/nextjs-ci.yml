@@ -1,0 +1,30 @@
+name: NextJS application build CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build NextJS app with Node version ${{ matrix.node }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: 'Create .env file'
+        run: |
+          touch .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} >> .env
+          echo CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} >> .env
+          cat .env
+      - name: 'Build NextJS application'
+        run: |
+          npm install
+          npm run build --if-present
