@@ -20,8 +20,9 @@ jobs:
       - name: 'Create .env file'
         run: |
           touch .env
-          echo NEXT_PUBLIC_SUPABASE_URL=https://plzlcwomqeugqgraapwk.supabase.co >> .env
-          echo NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} >> .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} >> .env
+          echo CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} >> .env
           cat .env
       - name: 'Build NextJS application'
         run: |
