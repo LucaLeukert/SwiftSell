@@ -129,6 +129,7 @@ export const Homepage = () => {
                             Create Dummy Item
                         </button>
                         <button
+                            /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
                             onClick={async () => {
                                 const shops =
                                     await client.shop.getFeatured.query();
