@@ -1,3 +1,5 @@
+import { type LayoutBlockConfig } from "~/types/layoutBlockConfig";
+
 const hbs = `
 <div class="container text-center pt-5 pb-5">
   <h5>{{title}}</h5>
@@ -6,8 +8,8 @@ const hbs = `
 </div>
 `;
 
-const block = {
-    hbs,
+const block: LayoutBlockConfig = {
+    handlebars: hbs,
     name: "Simple Header #1",
     blockId: "header1",
     previewImageUrl: "https://i.imgur.com/IXz7LZ5.png",

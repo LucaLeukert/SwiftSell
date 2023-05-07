@@ -1,3 +1,5 @@
+import { type LayoutBlockConfig } from "~/types/layoutBlockConfig";
+
 const hbs = `
 <div class="container">
   <div class="row">
@@ -15,8 +17,8 @@ const hbs = `
 </div>
 `;
 
-const block = {
-    hbs,
+const block: LayoutBlockConfig = {
+    handlebars: hbs,
     name: "Gallery",
     blockId: "gallery1",
     previewImageUrl: "https://i.imgur.com/3hpsgRt.png",

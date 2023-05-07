@@ -15,7 +15,7 @@ model Item {
 
     name        String  @db.VarChar(255)
     description String  @db.VarChar(255)
-    category    String  @db.VarChar(255)
+    categories  String  @db.VarChar(255)
     price       Float
     images      Json
     Shop        Shop?   @relation(fields: [shopId], references: [id])

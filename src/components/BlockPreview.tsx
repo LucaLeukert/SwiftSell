@@ -1,7 +1,7 @@
-import { type LayoutBlock } from "~/utils/handlebars";
 import { v4 as uuid } from "uuid";
 import { type Block } from "~/views/blocks";
 import Image from "next/image";
+import { LayoutBlock } from "~/types/layoutBlock";
 
 export const BlockPreview = (props: {
     block: Block;

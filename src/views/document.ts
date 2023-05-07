@@ -36,7 +36,7 @@ const hbs = `
   </head>
   <body>
   
-  <div class="sortable w-full p-20 flex flex-col m-0">
+  <div class="sortable w-full lg:p-20 md:p-10 sm:p-5 flex flex-col m-0">
     {{{content}}}
   </div>
   

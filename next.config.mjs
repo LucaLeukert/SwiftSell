@@ -5,7 +5,7 @@
 await import("./src/env.mjs");
 import transpile from "next-transpile-modules";
 
-const withTM = transpile((["react-icons"]))
+const withTM = transpile((["react-icons"]));
 
 /** @type {import("next").NextConfig} */
 const config = withTM({
@@ -23,6 +23,6 @@ const config = withTM({
   },
   images: {
     domains: ["images.clerk.dev", "i.imgur.com"]
-  },
+  }
 });
 export default config;

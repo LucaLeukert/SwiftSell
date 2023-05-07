@@ -2,7 +2,7 @@ import { NarrowSidebar } from "~/components/NarrowSidebar";
 import { Inspector } from "~/components/Inspector";
 import { BlocksGallery } from "~/components/BlockGallery";
 import React, { useEffect, useState } from "react";
-import renderHandlebar, { type LayoutBlock } from "~/utils/handlebars";
+import renderHandlebar from "~/utils/handlebars";
 import { api } from "~/utils/api";
 import Head from "next/head";
 import { BlockSearch } from "~/components/BlockSearch";
@@ -13,6 +13,7 @@ import {
     HiOutlineDesktopComputer,
 } from "react-icons/all";
 import { Navbar } from "~/components/navbar";
+import { LayoutBlock } from "~/types/layoutBlock";
 
 export const Designer = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -120,6 +121,7 @@ export const Designer = () => {
                             currentBlock={selectedLayoutBlock}
                             display={activeTab === 0}
                             shopId={shop?.id as string}
+                            shopName={shop?.name as string}
                             onChangeBlockData={(action: {
                                 uuid: string;
                                 key: string;
@@ -285,14 +287,6 @@ export const Designer = () => {
                                     />
                                 </button>
                             </div>
-
-                            <button
-                                onClick={() => {
-                                    console.log(layoutBlocks);
-                                }}
-                            >
-                                Log
-                            </button>
 
                             <iframe
                                 className="h-full w-full"

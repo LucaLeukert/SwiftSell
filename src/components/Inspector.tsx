@@ -1,14 +1,15 @@
-import { type LayoutBlock } from "~/utils/handlebars";
 import blocks from "~/views/blocks";
 import { DebounceInput } from "react-debounce-input";
 import React from "react";
 import { api } from "~/utils/api";
-import { Item } from "@prisma/client";
+import { type Item } from "@prisma/client";
+import { type LayoutBlock } from "~/types/layoutBlock";
 
 export const Inspector = (props: {
     display: boolean;
     currentBlock: LayoutBlock | undefined;
     shopId: string;
+    shopName: string;
     onChangeBlockData: (action: {
         uuid: string;
         key: string;
@@ -16,6 +17,10 @@ export const Inspector = (props: {
     }) => void;
     onDeleteBlock: (layoutBlock?: LayoutBlock) => void;
 }) => {
+    const formatter = new Intl.NumberFormat("de-DE", {
+        style: "currency",
+        currency: "EUR",
+    });
     const { data: items, isLoading } = api.shop.queryShopItems.useQuery({
         shopId: props.shopId,
     });
@@ -73,7 +78,9 @@ export const Inspector = (props: {
                                     className="input-bordered input w-full bg-slate-100 text-slate-700 shadow"
                                     placeholder={value.name}
                                     /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
-                                    value={props.currentBlock?.data[key]}
+                                    value={
+                                        props.currentBlock?.data[key] as string
+                                    }
                                     onChange={(e) => {
                                         props.onChangeBlockData({
                                             uuid:
@@ -94,7 +101,9 @@ export const Inspector = (props: {
                                     type="color"
                                     className="input-bordered input w-full bg-slate-100 text-slate-700 shadow"
                                     /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
-                                    value={props.currentBlock?.data[key]}
+                                    value={
+                                        props.currentBlock?.data[key] as string
+                                    }
                                     onChange={(e) => {
                                         console.log(e.target.value);
                                         props.onChangeBlockData({
@@ -115,7 +124,11 @@ export const Inspector = (props: {
                                         type="checkbox"
                                         className="checkbox"
                                         /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
-                                        value={props.currentBlock?.data[key]}
+                                        value={
+                                            props.currentBlock?.data[
+                                                key
+                                            ] as string
+                                        }
                                         onChange={(e) => {
                                             props.onChangeBlockData({
                                                 uuid:
@@ -137,6 +150,43 @@ export const Inspector = (props: {
                                 <select
                                     onChange={(event) => {
                                         console.log(event.target.value);
+                                        const item = items?.items.find(
+                                            (item) =>
+                                                item.id === event.target.value
+                                        );
+                                        if (!item) return;
+
+                                        console.log(item);
+
+                                        const images = item.images as {
+                                            images: string[];
+                                        };
+
+                                        if (!props.currentBlock?.data[key])
+                                            return;
+                                        const blockData = props.currentBlock
+                                            ?.data[key] as {
+                                            background_color: string;
+                                        };
+
+                                        const itemData = {
+                                            id: item.id,
+                                            image: images.images[0],
+                                            name: item.name,
+                                            categories:
+                                                item.categories.split(","),
+                                            background_color:
+                                                blockData.background_color,
+                                            price: formatter.format(item.price),
+                                            shop_name: props.shopName,
+                                        };
+
+                                        props.onChangeBlockData({
+                                            uuid:
+                                                props.currentBlock?.uuid ?? "",
+                                            key,
+                                            value: itemData,
+                                        });
                                     }}
                                     className="select w-full bg-slate-100 text-slate-700"
                                 >

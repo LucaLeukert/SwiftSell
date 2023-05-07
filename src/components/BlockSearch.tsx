@@ -2,7 +2,8 @@ import { DebounceInput } from "react-debounce-input";
 import blocks from "~/views/blocks";
 import React, { useState } from "react";
 import { BlockPreview } from "~/components/BlockPreview";
-import { type LayoutBlock } from "~/utils/handlebars";
+
+import { LayoutBlock } from "~/types/layoutBlock";
 
 export const BlockSearch = (props: {
     display: boolean;
