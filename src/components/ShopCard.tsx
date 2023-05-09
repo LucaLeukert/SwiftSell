@@ -9,12 +9,12 @@ export type JsonImages = {
 };
 
 export const ShopCard = ({
-                             shop,
-                             imageWidth,
-                             imageHeight,
-                             hasBadge,
-                             badgeContent
-                         }: {
+    shop,
+    imageWidth,
+    imageHeight,
+    hasBadge,
+    badgeContent,
+}: {
     shop: FeaturedShop;
     imageWidth: number;
     imageHeight: number;
@@ -26,7 +26,7 @@ export const ShopCard = ({
     const indicator = hasBadge ? "indicator" : "";
     const router = useRouter();
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (
           shop.card &&
           shop.card.images &&
@@ -39,44 +39,43 @@ export const ShopCard = ({
         }
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-    }, [shop?.card.images]);
+    }, [shop?.card.images]);*/
 
     /*useEffect(() => {
         setWidth(imageWidth);
     }, [imageWidth]);*/
 
     return (
-      <div
-        className={`card card-normal w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
-      >
-          {hasBadge && badgeContent && (
-            <span
-              className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">
+        <div
+            className={`card-normal card w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
+        >
+            {hasBadge && badgeContent && (
+                <span className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">
                     {badgeContent}
                 </span>
-          )}
-          <Carousel
-            id={`carousel-${shop.id}`}
-            width={imageWidth}
-            height={imageHeight}
-            /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-            images={images}
-          />
+            )}
+            <Carousel
+                id={`carousel-${shop.id}`}
+                width={imageWidth}
+                height={imageHeight}
+                /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+                images={images}
+            />
 
-          <div className="card-body">
-              <h1 className="card-title text-slate-200">{shop.name}</h1>
-              <p className="text-slate-300">{shop.description}</p>
-              <div className="card-actions mt-3 w-full justify-end">
-                  <button
-                    className="btn-accent btn-block btn"
-                    onClick={() => {
-                        void router.push(shop.url);
-                    }}
-                  >
-                      zum Shop
-                  </button>
-              </div>
-          </div>
-      </div>
+            <div className="card-body">
+                <h1 className="card-title text-slate-200">{shop.name}</h1>
+                <p className="text-slate-300">{shop.description}</p>
+                <div className="card-actions mt-3 w-full justify-end">
+                    <button
+                        className="btn-accent btn-block btn"
+                        onClick={() => {
+                            void router.push(shop.url);
+                        }}
+                    >
+                        zum Shop
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 };
