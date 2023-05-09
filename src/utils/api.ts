@@ -35,18 +35,15 @@ export const api = createTRPCNext<AppRouter>({
              */
             links: [
                 loggerLink({
-                    enabled: (opts) => false,
-                }),
-                /*loggerLink({
                     enabled: (opts) =>
                         process.env.NODE_ENV === "development" ||
                         (opts.direction === "down" &&
                             opts.result instanceof Error),
-                }),*/
-                httpBatchLink({
-                    url: `${getBaseUrl()}/api/trpc`,
                 }),
-            ],
+                httpBatchLink({
+                    url: `${getBaseUrl()}/api/trpc`
+                })
+            ]
         };
     },
     /**
@@ -54,21 +51,21 @@ export const api = createTRPCNext<AppRouter>({
      *
      * @see https://trpc.io/docs/nextjs#ssr-boolean-default-false
      */
-    ssr: false,
+    ssr: true
 });
 
 export const client = createTRPCProxyClient<AppRouter>({
     links: [
         loggerLink({
             enabled: (opts) =>
-                process.env.NODE_ENV === "development" ||
-                (opts.direction === "down" && opts.result instanceof Error),
+              process.env.NODE_ENV === "development" ||
+              (opts.direction === "down" && opts.result instanceof Error)
         }),
         httpBatchLink({
-            url: `${getBaseUrl()}/api/trpc`,
-        }),
+            url: `${getBaseUrl()}/api/trpc`
+        })
     ],
-    transformer: superjson,
+    transformer: superjson
 });
 
 export type RouterInputs = inferRouterInputs<AppRouter>;

@@ -17,22 +17,22 @@ const block: LayoutBlockConfig = {
     defaultData: {
         title: "Hello World",
         tagline: "Lorem ipsum dolor sit amet.",
-        link: "Read more",
+        link: "Read more"
     },
     config: {
         title: {
             type: "string",
-            name: "Title",
+            name: "Title"
         },
         tagline: {
             type: "string",
-            name: "Tag Line",
+            name: "Tag Line"
         },
         link: {
             type: "string",
-            name: "Text on the link",
-        },
-    },
+            name: "Text on the link"
+        }
+    }
 };
 
 export default block;

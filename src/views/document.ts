@@ -103,7 +103,7 @@ const hbs = `
 
 const document = {
     hbs,
-    name: "Default (Bootstrap 4.5)",
+    name: "Default (Bootstrap 4.5)"
 };
 
 export default document;

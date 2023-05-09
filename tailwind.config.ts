@@ -12,12 +12,12 @@ export default {
 
             xl: "1280px",
 
-            "2xl": "1536px",
-        },
+            "2xl": "1536px"
+        }
     },
     plugins: [
         require("@tailwindcss/typography"),
         require("daisyui"),
-        require("tailwind-scrollbar")({ nocompatible: true }),
-    ],
+        require("tailwind-scrollbar")({ nocompatible: true })
+    ]
 } satisfies Config;

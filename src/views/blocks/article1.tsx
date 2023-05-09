@@ -53,54 +53,54 @@ const block: LayoutBlockConfig = {
         articleTitle3: "Hello World",
         text1: "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.",
         text2: "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.",
-        text3: "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.",
+        text3: "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id."
     },
     config: {
         title: {
             type: "string",
-            name: "Section title",
+            name: "Section title"
         },
         description: {
             type: "string",
-            name: "Section description",
+            name: "Section description"
         },
         image1: {
             type: "string",
-            name: "Url to image #1",
+            name: "Url to image #1"
         },
         image2: {
             type: "string",
-            name: "Url to image #2",
+            name: "Url to image #2"
         },
         image3: {
             type: "string",
-            name: "Url to image #3",
+            name: "Url to image #3"
         },
         articleTitle1: {
             type: "string",
-            name: "Title for the article #1",
+            name: "Title for the article #1"
         },
         articleTitle2: {
             type: "string",
-            name: "Title for the article #2",
+            name: "Title for the article #2"
         },
         articleTitle3: {
             type: "string",
-            name: "Title for the article #3",
+            name: "Title for the article #3"
         },
         text1: {
             type: "string",
-            name: "Content for the article #1",
+            name: "Content for the article #1"
         },
         text2: {
             type: "string",
-            name: "Content for the article #2",
+            name: "Content for the article #2"
         },
         text3: {
             type: "string",
-            name: "Content for the article #3",
-        },
-    },
+            name: "Content for the article #3"
+        }
+    }
 };
 
 export default block;

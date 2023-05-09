@@ -9,7 +9,7 @@ import { shopRouter } from "~/server/api/routers/shop";
  */
 export const appRouter = createTRPCRouter({
     item: itemRouter,
-    shop: shopRouter,
+    shop: shopRouter
 });
 
 // export type definition of API

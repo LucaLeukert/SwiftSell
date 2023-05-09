@@ -8,7 +8,7 @@ import { type LayoutBlock } from "~/types/layoutBlock";
 function renderHandlebar(layoutBlocks: LayoutBlock[]) {
     const innerHTML = layoutBlocks.reduce((acc, layoutBlock) => {
         const blockHbs = blocks.find(
-            (block) => block.blockId === layoutBlock.blockId
+          (block) => block.blockId === layoutBlock.blockId
         );
         const blockTemplate = handlebars.compile(blockHbs?.hbs);
         const blockHTML = blockTemplate(layoutBlock.data);
@@ -16,14 +16,14 @@ function renderHandlebar(layoutBlocks: LayoutBlock[]) {
         const sectionTemplate = handlebars.compile(section);
         const sectionHTML = sectionTemplate({
             content: blockHTML,
-            uuid: layoutBlock.uuid,
+            uuid: layoutBlock.uuid
         });
 
         return `${acc}${sectionHTML}`;
     }, ``);
 
     const documentTemplate = handlebars.compile(document.hbs)({
-        content: innerHTML,
+        content: innerHTML
     });
 
     return documentTemplate;
@@ -32,7 +32,7 @@ function renderHandlebar(layoutBlocks: LayoutBlock[]) {
 export const renderProduction = (layoutBlocks: LayoutBlock[]) => {
     const innerHTML = layoutBlocks.reduce((acc, layoutBlock) => {
         const blockHbs = blocks.find(
-            (block) => block.blockId === layoutBlock.blockId
+          (block) => block.blockId === layoutBlock.blockId
         );
         const blockTemplate = handlebars.compile(blockHbs?.hbs);
         const blockHTML = blockTemplate(layoutBlock.data);
@@ -40,14 +40,14 @@ export const renderProduction = (layoutBlocks: LayoutBlock[]) => {
         const sectionTemplate = handlebars.compile(section);
         const sectionHTML = sectionTemplate({
             content: blockHTML,
-            uuid: layoutBlock.uuid,
+            uuid: layoutBlock.uuid
         });
 
         return `${acc}${sectionHTML}`;
     }, ``);
 
     return handlebars.compile(productionDocument.hbs)({
-        content: innerHTML,
+        content: innerHTML
     });
 };
 

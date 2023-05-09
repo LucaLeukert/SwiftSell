@@ -46,7 +46,7 @@ const createInnerTRPCContext = (opts: CreateNextContextOptions) => {
 
     return {
         prisma,
-        userId: session.userId,
+        userId: session.userId
     };
 };
 
@@ -68,12 +68,12 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
             data: {
                 ...shape.data,
                 zodError:
-                    error.cause instanceof ZodError
-                        ? error.cause.flatten()
-                        : null,
-            },
+                  error.cause instanceof ZodError
+                    ? error.cause.flatten()
+                    : null
+            }
         };
-    },
+    }
 });
 
 /**
@@ -102,14 +102,14 @@ export const publicProcedure = t.procedure;
 const enforceAuthorised = t.middleware(async ({ ctx, next }) => {
     if (!ctx.userId) {
         throw new TRPCError({
-            code: "UNAUTHORIZED",
+            code: "UNAUTHORIZED"
         });
     }
 
     return next({
         ctx: {
-            userId: ctx.userId,
-        },
+            userId: ctx.userId
+        }
     });
 });
 
