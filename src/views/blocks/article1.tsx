@@ -37,7 +37,7 @@ const hbs = `
 `;
 
 const block: LayoutBlockConfig = {
-    handlebars: hbs,
+    hbs: hbs,
     name: "Article #1",
     blockId: "article1",
     previewImageUrl: "https://i.imgur.com/6QUsWtK.png",

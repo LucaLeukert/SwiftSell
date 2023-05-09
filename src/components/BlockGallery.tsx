@@ -1,7 +1,7 @@
 import blocks from "../views/blocks";
 import { BlockPreview } from "~/components/BlockPreview";
 
-import { LayoutBlock } from "~/types/layoutBlock";
+import { type LayoutBlock } from "~/types/layoutBlock";
 
 export const BlocksGallery = (props: {
     display: boolean;

@@ -1,13 +1,10 @@
 import { ShopCard } from "~/components/ShopCard";
 import { api, client } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
-import {} from "@trpc/next";
-import { Item } from "~/components/Item";
 import React from "react";
 
 export const Homepage = () => {
     const { data: shops } = api.shop.getFeatured.useQuery();
-    const { data: items } = api.item.getAll.useQuery();
     const { isSignedIn } = useUser();
 
     const { mutate } = api.item.create.useMutation();
@@ -90,31 +87,14 @@ export const Homepage = () => {
                         })}
                     </div>
 
-                    <div className="mb-3 flex sm:gap-5 md:gap-20 lg:gap-24">
-                        {items?.map((item) => {
-                            return (
-                                <>
-                                    <Item
-                                        item={item}
-                                        imageWidth={300}
-                                        imageHeight={200}
-                                        hasBadge={true}
-                                        badgeContent={"Empfohlen"}
-                                        key={item.id}
-                                    />
-                                </>
-                            );
-                        })}
-                    </div>
-
                     <div className="divider my-3 divide-info" />
                 </div>
 
                 {isSignedIn && (
-                    <div className="h-fit w-full bg-black">
+                    <div className="h-fit w-full bg-black flex gap-5">
                         <h1>Dev Section</h1>
                         <button
-                            className="btn"
+                            className="btn btn-primary"
                             onClick={() => {
                                 mutate({
                                     name: "Dummy Item",

@@ -10,7 +10,7 @@ function renderHandlebar(layoutBlocks: LayoutBlock[]) {
         const blockHbs = blocks.find(
             (block) => block.blockId === layoutBlock.blockId
         );
-        const blockTemplate = handlebars.compile(blockHbs?.handlebars);
+        const blockTemplate = handlebars.compile(blockHbs?.hbs);
         const blockHTML = blockTemplate(layoutBlock.data);
 
         const sectionTemplate = handlebars.compile(section);
@@ -34,7 +34,7 @@ export const renderProduction = (layoutBlocks: LayoutBlock[]) => {
         const blockHbs = blocks.find(
             (block) => block.blockId === layoutBlock.blockId
         );
-        const blockTemplate = handlebars.compile(blockHbs?.handlebars);
+        const blockTemplate = handlebars.compile(blockHbs?.hbs);
         const blockHTML = blockTemplate(layoutBlock.data);
 
         const sectionTemplate = handlebars.compile(section);

@@ -59,7 +59,7 @@ const hbs = `
 `;
 
 const block: LayoutBlockConfig = {
-    handlebars: hbs,
+    hbs: hbs,
     name: "Article #2",
     blockId: "article2",
     previewImageUrl: "/images/blocks/article2.png",

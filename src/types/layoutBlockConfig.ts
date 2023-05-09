@@ -1,5 +1,5 @@
 export type LayoutBlockConfig = {
-    handlebars: string;
+    hbs: string;
     name: string;
     blockId: string;
     previewImageUrl: string;

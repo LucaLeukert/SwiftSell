@@ -9,7 +9,7 @@ const hbs = `
 `;
 
 const block: LayoutBlockConfig = {
-    handlebars: hbs,
+    hbs: hbs,
     name: "Simple Header #1",
     blockId: "header1",
     previewImageUrl: "https://i.imgur.com/IXz7LZ5.png",

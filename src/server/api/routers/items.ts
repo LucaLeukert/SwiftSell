@@ -9,7 +9,7 @@ import { TRPCError } from "@trpc/server";
 
 export const itemRouter = createTRPCRouter({
     getAll: publicProcedure.query(({ ctx }) => {
-        return ctx.prisma.item.findMany();
+        /*return ctx.prisma.item.findMany();*/
     }),
     queryItemById: publicProcedure
         .input(
