@@ -2,7 +2,7 @@ name: NextJS application build CI
 
 on:
   push:
-    branches: [ "main", "development" ]
+    branches: [ "main" ]
   pull_request:
     types: [opened, reopened]
 
@@ -10,6 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build NextJS app with Node version ${{ matrix.node }}
+    environment: Production
 
     steps:
       - uses: actions/checkout@v3
@@ -28,6 +29,4 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-      - name: Lint Action
-        uses: wearerequired/lint-action@v2.3.0
 
