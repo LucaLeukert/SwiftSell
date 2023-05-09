@@ -1,4 +1,4 @@
-/** @type {import("prettier").Config} */
+/** @type {{plugins: string[], tabWidth: number, semi: boolean}} */
 const config = {
   plugins: [require.resolve("prettier-plugin-tailwindcss")],
   tabWidth: 4,

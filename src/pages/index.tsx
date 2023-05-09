@@ -39,7 +39,7 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
             </Head>
             <main className="h-screen w-full overscroll-none">
                 <Navbar />
-                <Homepage shops={featuredStores} />
+                <Homepage />
             </main>
         </>
     );

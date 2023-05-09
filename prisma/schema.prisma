@@ -59,3 +59,16 @@ model ShopCard {
     shopId      String   @unique
     shop        Shop     @relation(fields: [shopId], references: [id])
 }
+
+model Product {
+    id             String   @id @default(cuid())
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
+    title          String   @db.VarChar(255)
+    description    String   @db.VarChar(255)
+    sku            Int      @unique @default(autoincrement())
+    currency       String   @default("USD")
+    price          Float
+    priceFormatted String   @db.VarChar(255)
+    image          String   @db.VarChar(255)
+}

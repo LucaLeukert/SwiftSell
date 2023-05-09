@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
-import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, SignUpButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 
 export const ProfilePicture: NextPage = () => {
     const { user, isSignedIn, isLoaded } = useUser();
@@ -43,9 +44,9 @@ export const ProfilePicture: NextPage = () => {
     }
 
     return (
-      <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
+      <div className="dropdown dropdown-end h-full aspect-square">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar h-full w-full">
+              <div className="w-5/6 rounded-full">
                   <Image
                     className="rounded-full"
                     src={user?.profileImageUrl}
@@ -58,13 +59,13 @@ export const ProfilePicture: NextPage = () => {
           <ul tabIndex={0}
               className="mt-5 p-2 shadow menu menu-compact shadow-2xl dropdown-content bg-base-100 rounded-box w-52">
               <li>
-                  <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                  </a>
+                  <Link href={"/"} className="justify-between">
+                      Profil
+                      <span className="badge">Neu</span>
+                  </Link>
               </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><Link href={"/settings/profile"} >Einstellungen</Link></li>
+              <li><SignOutButton>Abmelden</SignOutButton></li>
           </ul>
       </div>
     );

@@ -6,12 +6,12 @@ import { type JsonImages } from "~/components/ShopCard";
 export type Item = RouterOutputs["item"]["getAll"][number];
 
 export const Item = ({
-                         item,
-                         imageWidth,
-                         imageHeight,
-                         hasBadge,
-                         badgeContent
-                     }: {
+    item,
+    imageWidth,
+    imageHeight,
+    hasBadge,
+    badgeContent,
+}: {
     item: Item;
     imageWidth: number;
     imageHeight: number;
@@ -22,11 +22,11 @@ export const Item = ({
     const [images, setImages] = useState<string[]>([]);
     const formatter = new Intl.NumberFormat("de-DE", {
         style: "currency",
-        currency: "EUR"
+        currency: "EUR",
     });
     const indicator = hasBadge ? "indicator" : "";
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (item?.images && typeof item?.images === "object") {
             const json = item?.images as unknown as JsonImages;
             console.log(json.images);
@@ -37,13 +37,13 @@ export const Item = ({
 
     useEffect(() => {
         setWidth(imageWidth);
-    }, [imageWidth]);
+    }, [imageWidth]);*/
 
     return (
-      <div
-        className={`card-normal card w-[${width}px] ${indicator} bg-slate-600 shadow-xl`}
-      >
-          {hasBadge && badgeContent && (
+        <div
+            className={`card card-normal w-[${width}px] ${indicator} bg-slate-600 shadow-xl`}
+        >
+            {/*          {hasBadge && badgeContent && (
             <span className="badge-accent badge indicator-item text-slate-200 shadow">
                     {badgeContent}
                 </span>
@@ -63,7 +63,7 @@ export const Item = ({
                       In den Warenkorb - {formatter.format(item.price)}
                   </button>
               </div>
-          </div>
-      </div>
+          </div>*/}
+        </div>
     );
 };

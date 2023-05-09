@@ -6,7 +6,7 @@ export const Homepage = () => {
     const { isSignedIn } = useUser();
 
     return (
-        <div className="absolute h-fit w-full bg-gradient-to-b from-slate-100 to-slate-200 ">
+        <div className="absolute h-full w-full bg-gradient-to-b from-slate-100 to-slate-200 ">
             <section
                 className="hero h-[350px] "
                 style={{

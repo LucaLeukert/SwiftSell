@@ -1,10 +1,4 @@
-#
-
-
-
-
-S
-wiftSell
+#SwiftSell
 
 SwiftSell is an ecommerce store hoster similar to Shopify. You can create and manage your own online store with SwiftSell, using the T3 stack with TRPC, Next.js, Prisma, Tailwind and Clerk auth.
 
