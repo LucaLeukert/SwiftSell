@@ -1,18 +1,15 @@
-import { Carousel } from "~/components/Carousel";
-import { type RouterOutputs } from "~/utils/api";
-import { useEffect, useState } from "react";
-import { type JsonImages } from "~/components/ShopCard";
+import { useState } from "react";
 
-export type Item = RouterOutputs["item"]["getAll"][number];
+/*export type Item = RouterOutputs["item"]["getAll"][number];*/
 
 export const Item = ({
-    item,
+    /*item,*/
     imageWidth,
     imageHeight,
     hasBadge,
     badgeContent,
 }: {
-    item: Item;
+    /*item: Item;*/
     imageWidth: number;
     imageHeight: number;
     hasBadge?: boolean;

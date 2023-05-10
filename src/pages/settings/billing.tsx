@@ -3,7 +3,7 @@ import React from "react";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { BaseLayout } from "~/components/Settings/BaseLayout";
 
-const ProfileSettings = () => {
+const BillingSettings = () => {
     return (
         <>
             <Head>
@@ -14,7 +14,7 @@ const ProfileSettings = () => {
                 <Navbar />
                 <BaseLayout>
                     <div>
-                        <h1 className="text-2xl">Öffentliches Profil</h1>
+                        <h1 className="text-2xl">Abrechnungspläne</h1>
                         <div className="divider my-2" />
                     </div>
                 </BaseLayout>
@@ -23,4 +23,4 @@ const ProfileSettings = () => {
     );
 };
 
-export default ProfileSettings;
+export default BillingSettings;

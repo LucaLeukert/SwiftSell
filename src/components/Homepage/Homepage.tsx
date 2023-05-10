@@ -8,7 +8,7 @@ export const Homepage = () => {
     return (
         <div className="absolute h-full w-full bg-gradient-to-b from-slate-100 to-slate-200 ">
             <section
-                className="hero h-[350px] "
+                className="hero h-[350px]"
                 style={{
                     backgroundImage: `url("/img_2.png")`,
                 }}
@@ -26,7 +26,7 @@ export const Homepage = () => {
                         </p>
 
                         {isSignedIn ? (
-                            <div className="form-control flex h-fit flex-row rounded-full bg-slate-100 p-1 pl-5 shadow">
+                            <div className="form-control flex h-fit flex-row justify-between rounded-full bg-slate-100 p-1 pl-5 shadow">
                                 <input
                                     placeholder="Gebe deinem Shop einen Namen"
                                     className="w-2/3 bg-transparent text-slate-700 focus:outline-none"

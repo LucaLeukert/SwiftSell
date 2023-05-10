@@ -3,12 +3,9 @@
  * for Docker builds.
  */
 await import("./src/env.mjs");
-import transpile from "next-transpile-modules";
-
-const withTM = transpile((["react-icons"]));
 
 /** @type {import("next").NextConfig} */
-const config = withTM({
+const config = {
   reactStrictMode: true,
 
   /**
@@ -23,6 +20,15 @@ const config = withTM({
   },
   images: {
     domains: ["images.clerk.dev", "i.imgur.com"]
+  },
+  async redirects() {
+    return [
+      {
+        source: "/settings",
+        destination: "/settings/profile",
+        permanent: true
+      }
+    ];
   }
-});
+};
 export default config;
