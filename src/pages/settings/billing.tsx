@@ -7,16 +7,25 @@ const BillingSettings = () => {
     return (
         <>
             <Head>
-                <title>Dein Profil</title>
+                <title>Abrechnungspläne</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="h-screen w-full">
                 <Navbar />
                 <BaseLayout>
-                    <div>
+                    <section>
                         <h1 className="text-2xl">Abrechnungspläne</h1>
                         <div className="divider my-2" />
-                    </div>
+                        <form>
+                            <div>
+                                <dl>
+                                    <dt>
+                                        <label>Name</label>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </form>
+                    </section>
                 </BaseLayout>
             </main>
         </>

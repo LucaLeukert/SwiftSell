@@ -7,7 +7,7 @@ const AccountSettings = () => {
     return (
         <>
             <Head>
-                <title>Dein Profil</title>
+                <title>Dein Konto</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="h-screen w-full">

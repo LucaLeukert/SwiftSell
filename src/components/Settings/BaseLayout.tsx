@@ -15,9 +15,12 @@ export const BaseLayout = (props: { children: JSX.Element }) => {
     }
 
     return (
-        <div className="h-full w-full bg-base-200">
+        <div
+            className="h-full w-full bg-base-200"
+            style={{ flexFlow: "column" }}
+        >
             <div className="flex flex-col p-7 sm:mx-5 md:mx-20 lg:mx-40">
-                <div className="flex flex-row items-center">
+                <div className="mb-6 flex flex-row items-center">
                     <Image
                         src={user?.profileImageUrl as string}
                         alt={`${user?.username as string}'s Profile Picture`}
@@ -37,9 +40,8 @@ export const BaseLayout = (props: { children: JSX.Element }) => {
                         <span>Ihr persönliches Konto</span>
                     </div>
                 </div>
-                <div className="divider my-3" />
                 <div className="flex flex-row">
-                    <div className="mr-10 w-2/6 min-w-[200px] max-w-[300px] text-white">
+                    <div className="mr-9 w-2/6 min-w-[200px] max-w-[300px] text-white">
                         <nav>
                             <ul className="flex flex-col gap-1">
                                 <li
