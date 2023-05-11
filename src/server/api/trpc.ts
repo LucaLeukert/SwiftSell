@@ -7,6 +7,9 @@
  * need to use are documented accordingly near the end.
  */
 
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
 /**
  * 1. CONTEXT
  *
@@ -46,7 +49,7 @@ const createInnerTRPCContext = (opts: CreateNextContextOptions) => {
 
     return {
         prisma,
-        userId: session.userId
+        userId: session.userId,
     };
 };
 
@@ -68,12 +71,20 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
             data: {
                 ...shape.data,
                 zodError:
-                  error.cause instanceof ZodError
-                    ? error.cause.flatten()
-                    : null
-            }
+                    error.cause instanceof ZodError
+                        ? error.cause.flatten()
+                        : null,
+            },
         };
-    }
+    },
+});
+
+// Create a new ratelimiter, that allows 10 requests per 10 seconds
+export const ratelimit = new Ratelimit({
+    redis: Redis.fromEnv(),
+    limiter: Ratelimit.slidingWindow(3, "1 m"),
+    analytics: true,
+    prefix: "@upstash/ratelimit",
 });
 
 /**
@@ -102,14 +113,14 @@ export const publicProcedure = t.procedure;
 const enforceAuthorised = t.middleware(async ({ ctx, next }) => {
     if (!ctx.userId) {
         throw new TRPCError({
-            code: "UNAUTHORIZED"
+            code: "UNAUTHORIZED",
         });
     }
 
     return next({
         ctx: {
-            userId: ctx.userId
-        }
+            userId: ctx.userId,
+        },
     });
 });
 

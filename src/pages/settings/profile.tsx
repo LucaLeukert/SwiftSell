@@ -1,12 +1,58 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { BaseLayout } from "~/components/Settings/BaseLayout";
 import { DebounceInput } from "react-debounce-input";
 import { useUser } from "@clerk/nextjs";
+import { api } from "~/utils/api";
+import toast from "react-hot-toast";
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Datepicker from "tailwind-datepicker-react";
+import { withServerSideAuth } from "@clerk/nextjs/ssr";
+
+export const getServerSideProps = withServerSideAuth(
+    async (context) => {
+        const { sessionId, userId, getToken } = context.auth;
+        const { user, session } = context;
+        console.log(
+            "Available during SSR:",
+            sessionId,
+            userId,
+            await getToken()
+        );
+        console.log("Available during SSR:", user, session);
+    },
+    { loadUser: true, loadSession: true }
+);
 
 const ProfileSettings = () => {
-    const { user, isSignedIn } = useUser();
+    const { user, isSignedIn, isLoaded } = useUser();
+    const [username, setUsername] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [showDate, setShowDate] = useState(false);
+
+    useEffect(() => {
+        if (isLoaded && isSignedIn) {
+            setUsername(user.username as string);
+            setFirstName(user.firstName as string);
+            setLastName(user.lastName as string);
+        }
+    }, [isLoaded, isSignedIn]);
+
+    const { mutate } = api.settings.mutateProfile.useMutation({
+        onSuccess: () => {
+            toast.success("Profil erfolgreich aktualisiert!");
+        },
+        onError: (error) => {
+            const zodError = error.data?.zodError?.fieldErrors.user;
+
+            if (zodError && zodError[0]) toast.error(zodError[0]);
+            else toast.error(error.message);
+        },
+    });
 
     return (
         <>
@@ -23,9 +69,17 @@ const ProfileSettings = () => {
                         <form
                             onSubmit={(event) => {
                                 event.preventDefault();
+
+                                mutate({
+                                    user: {
+                                        username,
+                                        firstName,
+                                        lastName,
+                                    },
+                                });
                             }}
                         >
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-6 sm:w-full md:w-full lg:w-[300px] xl:w-[450px]">
                                 <dl>
                                     <dt className="mb-1.5">
                                         <label className="text-lg">
@@ -35,16 +89,17 @@ const ProfileSettings = () => {
                                     <dd>
                                         <DebounceInput
                                             debounceTimeout={200}
-                                            className="input-bordered input mr-3 h-8 w-full max-w-xs bg-base-300"
+                                            className="input-bordered input mr-3 h-8 w-full bg-base-300"
                                             placeholder={
                                                 user?.username as string
                                             }
-                                            onChange={(event) => {
-                                                console.log(event.target.value);
-                                            }}
+                                            value={username}
+                                            onChange={(event) =>
+                                                setUsername(event.target.value)
+                                            }
                                             type="text"
                                         />
-                                        <p className="my-1 text-xs text-gray-500">
+                                        <p className="my-1 !text-xs text-gray-500">
                                             Ihr Name kann auf SwiftSell Stores
                                             erscheinen, wenn sie einen Kauf auf
                                             einem SwiftSell Autorisierten Store
@@ -65,15 +120,16 @@ const ProfileSettings = () => {
                                             <dd className="h-8">
                                                 <DebounceInput
                                                     debounceTimeout={200}
-                                                    className="input-bordered input mr-3 h-full w-full max-w-xs bg-base-300"
+                                                    value={firstName}
+                                                    className="input-bordered input mr-3 h-full w-full bg-base-300"
                                                     placeholder={
                                                         user?.firstName as string
                                                     }
-                                                    onChange={(event) => {
-                                                        console.log(
+                                                    onChange={(event) =>
+                                                        setFirstName(
                                                             event.target.value
-                                                        );
-                                                    }}
+                                                        )
+                                                    }
                                                     type="text"
                                                 />
                                             </dd>
@@ -87,20 +143,63 @@ const ProfileSettings = () => {
                                             <dd className="h-8">
                                                 <DebounceInput
                                                     debounceTimeout={200}
-                                                    className="input-bordered input mr-3 h-full w-full max-w-xs bg-base-300"
+                                                    className="input-bordered input mr-3 h-full w-full bg-base-300"
                                                     placeholder={
                                                         user?.lastName as string
                                                     }
-                                                    onChange={(event) => {
-                                                        console.log(
+                                                    value={lastName}
+                                                    onChange={(event) =>
+                                                        setLastName(
                                                             event.target.value
-                                                        );
-                                                    }}
+                                                        )
+                                                    }
                                                     type="text"
                                                 />
                                             </dd>
                                         </dl>
                                     </div>
+                                </div>
+                                <div>
+                                    <dl>
+                                        <dt>
+                                            <label>Geburtstag</label>
+                                        </dt>
+                                        <dd className="relative h-8">
+                                            <Datepicker
+                                                className=""
+                                                show={showDate}
+                                                onChange={(date: Date) => {
+                                                    console.log(date);
+                                                }}
+                                                options={{
+                                                    language: "de",
+                                                    title: "Wähle dein Geburtsdatum aus",
+                                                    todayBtnText: "Heute",
+                                                    clearBtn: false,
+                                                    datepickerClassNames:
+                                                        "top-7 shadow-xl",
+                                                    weekDays: [
+                                                        "Mo",
+                                                        "Di",
+                                                        "Mi",
+                                                        "Do",
+                                                        "Fr",
+                                                        "Sa",
+                                                        "So",
+                                                    ],
+                                                    theme: {
+                                                        background:
+                                                            "bg-base-100 dark:bg-base-300",
+                                                        disabledText:
+                                                            "bg-base-300",
+                                                    },
+                                                }}
+                                                setShow={(show: boolean) => {
+                                                    setShowDate(show);
+                                                }}
+                                            />
+                                        </dd>
+                                    </dl>
                                 </div>
                                 <button
                                     type="submit"

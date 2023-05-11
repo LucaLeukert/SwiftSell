@@ -6,3 +6,7 @@
     overscroll-behavior: none;
 }
 
+#date {
+    height: 32px;
+}
+
