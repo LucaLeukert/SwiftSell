@@ -3,29 +3,22 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { BaseLayout } from "~/components/Settings/BaseLayout";
 import { DebounceInput } from "react-debounce-input";
-import { useUser } from "@clerk/nextjs";
-import { api } from "~/utils/api";
-import toast from "react-hot-toast";
+import { clerkClient, useUser } from "@clerk/nextjs";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Datepicker from "tailwind-datepicker-react";
-import { withServerSideAuth } from "@clerk/nextjs/ssr";
+import { type GetServerSideProps } from "next";
+import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
+import { UserResource } from "@clerk/types";
 
-export const getServerSideProps = withServerSideAuth(
-    async (context) => {
-        const { sessionId, userId, getToken } = context.auth;
-        const { user, session } = context;
-        console.log(
-            "Available during SSR:",
-            sessionId,
-            userId,
-            await getToken()
-        );
-        console.log("Available during SSR:", user, session);
-    },
-    { loadUser: true, loadSession: true }
-);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const { userId } = getAuth(ctx.req);
+
+    const user = userId ? await clerkClient.users.getUser(userId) : undefined;
+
+    return { props: { ...buildClerkProps(ctx.req, { user }) } };
+};
 
 const ProfileSettings = () => {
     const { user, isSignedIn, isLoaded } = useUser();
@@ -36,23 +29,11 @@ const ProfileSettings = () => {
 
     useEffect(() => {
         if (isLoaded && isSignedIn) {
-            setUsername(user.username as string);
-            setFirstName(user.firstName as string);
-            setLastName(user.lastName as string);
+            setUsername(user?.username as string);
+            setFirstName(user?.firstName as string);
+            setLastName(user?.lastName as string);
         }
-    }, [isLoaded, isSignedIn]);
-
-    const { mutate } = api.settings.mutateProfile.useMutation({
-        onSuccess: () => {
-            toast.success("Profil erfolgreich aktualisiert!");
-        },
-        onError: (error) => {
-            const zodError = error.data?.zodError?.fieldErrors.user;
-
-            if (zodError && zodError[0]) toast.error(zodError[0]);
-            else toast.error(error.message);
-        },
-    });
+    }, [isLoaded, isSignedIn, user]);
 
     return (
         <>
@@ -62,21 +43,13 @@ const ProfileSettings = () => {
             </Head>
             <main className="h-screen w-full">
                 <Navbar />
-                <BaseLayout>
+                <BaseLayout user={user as UserResource} isLoaded={isLoaded}>
                     <section>
                         <h1 className="text-2xl">Öffentliches Profil</h1>
                         <div className="divider my-2" />
                         <form
                             onSubmit={(event) => {
                                 event.preventDefault();
-
-                                mutate({
-                                    user: {
-                                        username,
-                                        firstName,
-                                        lastName,
-                                    },
-                                });
                             }}
                         >
                             <div className="flex flex-col gap-6 sm:w-full md:w-full lg:w-[300px] xl:w-[450px]">

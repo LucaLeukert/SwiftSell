@@ -2,8 +2,11 @@ import Head from "next/head";
 import React from "react";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { BaseLayout } from "~/components/Settings/BaseLayout";
+import { UserResource } from "@clerk/types";
+import { useUser } from "@clerk/nextjs";
 
 const BillingSettings = () => {
+    const { user, isLoaded } = useUser();
     return (
         <>
             <Head>
@@ -12,7 +15,7 @@ const BillingSettings = () => {
             </Head>
             <main className="h-screen w-full">
                 <Navbar />
-                <BaseLayout>
+                <BaseLayout user={user as UserResource} isLoaded={isLoaded}>
                     <section>
                         <h1 className="text-2xl">Abrechnungspläne</h1>
                         <div className="divider my-2" />

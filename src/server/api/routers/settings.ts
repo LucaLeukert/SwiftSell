@@ -35,4 +35,16 @@ export const settingsRouter = createTRPCRouter({
             const user = await clerkClient.users.updateUser(userId, input.user);
             console.log(user);
         }),
+    queryUserInfo: protectedProcedure.mutation(async ({ ctx }) => {
+        const sessions = await clerkClient.sessions.getSessionList({
+            userId: ctx.userId,
+            status: "active",
+        });
+
+        sessions.forEach((session) => {
+            console.log(session);
+        });
+
+        return sessions;
+    }),
 });

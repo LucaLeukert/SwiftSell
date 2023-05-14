@@ -6,6 +6,13 @@ export default {
         "./node_modules/tailwind-datepicker-react/dist/**/*.js",
     ],
     theme: {
+        extend: {
+            colors: {
+                daisy: {
+                    border: "rgba(166, 173, 187, 0.2)",
+                },
+            },
+        },
         screens: {
             sm: "100px",
 
@@ -19,9 +26,9 @@ export default {
         },
     },
     plugins: [
-        /*
-        require("@tailwindcss/typography"),*/
+        require("@tailwindcss/typography"),
         require("daisyui"),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-var-requires
         require("tailwind-scrollbar")({ nocompatible: true }),
     ],
 } satisfies Config;

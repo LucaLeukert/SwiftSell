@@ -2,8 +2,11 @@ import Head from "next/head";
 import React from "react";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { BaseLayout } from "~/components/Settings/BaseLayout";
+import { useUser } from "@clerk/nextjs";
+import { UserResource } from "@clerk/types";
 
 const AccountSettings = () => {
+    const { user, isSignedIn, isLoaded } = useUser();
     return (
         <>
             <Head>
@@ -12,7 +15,7 @@ const AccountSettings = () => {
             </Head>
             <main className="h-screen w-full">
                 <Navbar />
-                <BaseLayout>
+                <BaseLayout user={user as UserResource} isLoaded={isLoaded}>
                     <div>
                         <h1 className="text-2xl">Konto</h1>
                         <div className="divider my-2" />
