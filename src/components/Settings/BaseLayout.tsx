@@ -1,20 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { type ReactElement } from "react";
 import { useRouter } from "next/router";
-import { UserResource } from "@clerk/types";
+import { type UserResource } from "@clerk/types";
+import { type NextPage } from "next";
+import { useOrganization } from "@clerk/nextjs";
 
 export const BaseLayout = (props: {
-    children: JSX.Element;
+    children: ReactElement;
     user: UserResource;
     isLoaded: boolean;
 }) => {
-    const router = useRouter();
-    const path = router.pathname.split("/").slice(-1)[0];
-
     return (
         <div
-            className="h-full w-full bg-base-200"
+            className="h-[calc(100%-80px)] w-full bg-base-200"
             style={{ flexFlow: "column" }}
         >
             <div className="flex h-full flex-col sm:mx-5 sm:p-1 md:mx-10 md:p-5 lg:mx-40 lg:p-7">
@@ -67,65 +66,43 @@ export const BaseLayout = (props: {
                     <div className="mr-9 w-1/2 min-w-[200px] max-w-[320px] text-white">
                         <nav>
                             <ul className="flex flex-col gap-1">
-                                <li
-                                    className={`rounded hover:bg-stone-600 hover:bg-opacity-30 ${
-                                        path === "profile"
-                                            ? "bg-stone-600 bg-opacity-20"
-                                            : ""
-                                    }`}
-                                >
-                                    <Link
-                                        href="/settings/profile"
-                                        className="flex flex-row items-center gap-2 p-1"
-                                    >
-                                        <span>Öffentliches Profil</span>
-                                    </Link>
-                                </li>
-                                <li
-                                    className={`rounded hover:bg-stone-600 hover:bg-opacity-30 ${
-                                        path === "account"
-                                            ? "bg-stone-600 bg-opacity-20"
-                                            : ""
-                                    }`}
-                                >
-                                    <Link
-                                        href="/settings/account"
-                                        className="flex flex-row items-center gap-2 p-1"
-                                    >
-                                        <span>Konto</span>
-                                    </Link>
-                                </li>
-                                <li
-                                    className={`rounded hover:bg-stone-600 hover:bg-opacity-30 ${
-                                        path === "security"
-                                            ? "bg-stone-600 bg-opacity-20"
-                                            : ""
-                                    }`}
-                                >
-                                    <Link
-                                        href="/settings/security"
-                                        className="flex flex-row items-center gap-2 p-1"
-                                    >
-                                        <span>Sicherheit und Datenschutz</span>
-                                    </Link>
-                                </li>
+                                <ValidatePath
+                                    name="Öffentliches Profil"
+                                    expectedPath="profile"
+                                    redirectPath="/settings/profile"
+                                    equalClassName="bg-stone-600 bg-opacity-20"
+                                    unequalClassName=""
+                                />
+
+                                <ValidatePath
+                                    name="Konto"
+                                    expectedPath="account"
+                                    redirectPath="/settings/account"
+                                    equalClassName="bg-stone-600 bg-opacity-20"
+                                    unequalClassName=""
+                                />
+
+                                <ValidatePath
+                                    name="Sicherheit und Datenschutz"
+                                    expectedPath="security"
+                                    redirectPath="/settings/security"
+                                    equalClassName="bg-stone-600 bg-opacity-20"
+                                    unequalClassName=""
+                                />
 
                                 <li className="divider my-0" />
 
-                                <li
-                                    className={`rounded hover:bg-stone-600 hover:bg-opacity-30 ${
-                                        path === "billing"
-                                            ? "bg-stone-600 bg-opacity-20"
-                                            : ""
-                                    }`}
-                                >
-                                    <Link
-                                        href="/settings/billing"
-                                        className="flex flex-row items-center gap-2 p-1"
-                                    >
-                                        <span>Abrechnungspläne</span>
-                                    </Link>
-                                </li>
+                                <ValidatePath
+                                    name="Abrechnungspläne"
+                                    expectedPath="billing"
+                                    redirectPath="/settings/billing"
+                                    equalClassName="bg-stone-600 bg-opacity-20"
+                                    unequalClassName=""
+                                />
+
+                                <li className="divider my-0" />
+
+                                <OrganizationBaseLayout />
                             </ul>
                         </nav>
                     </div>
@@ -133,5 +110,78 @@ export const BaseLayout = (props: {
                 </div>
             </div>
         </div>
+    );
+};
+
+const OrganizationBaseLayout = () => {
+    const { organization } = useOrganization();
+
+    return (
+        <li>
+            <div>
+                <h3 className="my-1 pl-1 text-sm text-slate-500">
+                    Organisation
+                </h3>
+            </div>
+            <ul className="flex flex-col gap-1">
+                {!organization ? (
+                    <ValidatePath
+                        name="Erstellen"
+                        expectedPath="create"
+                        redirectPath="/settings/organization/create"
+                        equalClassName="bg-stone-600 bg-opacity-20"
+                        unequalClassName=""
+                    />
+                ) : (
+                    <>
+                        <ValidatePath
+                            name="Mitglieder"
+                            expectedPath="members"
+                            redirectPath="/settings/organization/members"
+                            equalClassName="bg-stone-600 bg-opacity-20"
+                            unequalClassName=""
+                        />
+
+                        <ValidatePath
+                            name="Einstellungen"
+                            expectedPath="settings"
+                            redirectPath="/settings/organization/settings"
+                            equalClassName="bg-stone-600 bg-opacity-20"
+                            unequalClassName=""
+                        />
+                    </>
+                )}
+            </ul>
+        </li>
+    );
+};
+
+type ValidatePathProps = {
+    name: string;
+    expectedPath: string;
+    redirectPath: string;
+    unequalClassName?: string;
+    equalClassName?: string;
+};
+
+const ValidatePath: NextPage<ValidatePathProps> = (props) => {
+    const router = useRouter();
+    const path = router.pathname.split("/").slice(-1)[0];
+
+    const computedClassName = `rounded hover:bg-stone-600 hover:bg-opacity-30 ${
+        path === props.expectedPath
+            ? (props.equalClassName as string)
+            : (props.unequalClassName as string)
+    }`;
+
+    return (
+        <li className={computedClassName}>
+            <Link
+                href={props.redirectPath}
+                className="flex flex-row items-center gap-2 p-1"
+            >
+                <span>{props.name}</span>
+            </Link>
+        </li>
     );
 };

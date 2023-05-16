@@ -1,4 +1,5 @@
 import { type AppType } from "next/app";
+import "@uploadthing/react/styles.css";
 
 import { api } from "~/utils/api";
 

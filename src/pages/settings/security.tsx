@@ -14,6 +14,7 @@ import "dayjs/locale/de";
 import { type GetServerSideProps } from "next";
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
 import { AiOutlineEdit } from "react-icons/ai";
+import toast from "react-hot-toast";
 
 dayjs.extend(relativeTime);
 dayjs.locale("de");
@@ -60,7 +61,7 @@ const Security = () => {
                 <title>Sicherheit und Datenschutz</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className="h-screen w-full overflow-y-hidden">
+            <main className="h-screen w-full overflow-y-hidden bg-base-200">
                 <Navbar />
                 <BaseLayout user={user as UserResource} isLoaded={isLoaded}>
                     <section className="flex h-full flex-col">
@@ -93,7 +94,9 @@ const Security = () => {
                                             Passwort ändern
                                         </label>
 
-                                        <ResetPassword />
+                                        <ResetPasswordModal
+                                            user={user as UserResource}
+                                        />
                                     </div>
                                 </dd>
                             </dl>
@@ -105,7 +108,7 @@ const Security = () => {
                                     </label>
                                 </dt>
                                 <dd>
-                                    <div className="flex flex-1 flex-col gap-5 overflow-y-scroll">
+                                    <div className="flex flex-1 flex-col gap-5">
                                         {isLoadingSessions && (
                                             <>
                                                 <SkeletonSessionCard />
@@ -134,7 +137,38 @@ const Security = () => {
     );
 };
 
-const ResetPassword = () => {
+const ResetPasswordModal = (props: { user: UserResource }) => {
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const resetPassword = async () => {
+        if (!currentPassword || !newPassword || !confirmPassword) return;
+        if (newPassword !== confirmPassword) return;
+
+        if (newPassword.length <= 7) return;
+
+        const success = await props.user
+            .updatePassword({
+                currentPassword,
+                newPassword,
+                signOutOfOtherSessions: true,
+            })
+            .catch(() => {
+                toast.error("Das Passwort konnte nicht geändert werden.");
+                return false;
+            })
+            .finally(() => {
+                setCurrentPassword("");
+                setNewPassword("");
+                setConfirmPassword("");
+            });
+
+        if (success) {
+            toast.success("Das Passwort wurde erfolgreich geändert.");
+        }
+    };
+
     return (
         <>
             <input
@@ -142,20 +176,23 @@ const ResetPassword = () => {
                 id="reset-password-modal"
                 className="modal-toggle"
             />
-            <label
-                htmlFor="reset-password-modal"
-                className="modal sm:modal-bottom md:modal-middle"
-            >
+            <label className="modal sm:modal-bottom md:modal-middle">
                 <label htmlFor="" className="modal-box w-11/12 max-w-5xl">
-                    <h1 className="mb-5 text-2xl font-bold">Passwort ändern</h1>
-                    <form className="flex flex-col gap-1.5">
+                    <h1 className="mb-5 text-2xl font-bold text-slate-200">
+                        Passwort ändern
+                    </h1>
+                    <form className="flex flex-col gap-2 text-slate-300">
                         <div className="mb-2">
                             <label className="form-control">
                                 Aktuelles Passwort
                             </label>
                             <input
+                                value={currentPassword}
+                                onChange={(e) =>
+                                    setCurrentPassword(e.target.value)
+                                }
                                 type="password"
-                                className="input-bordered input h-8 w-full"
+                                className="input-bordered input mt-1 h-8 w-full"
                             />
                         </div>
                         <div className="mb-2">
@@ -163,8 +200,10 @@ const ResetPassword = () => {
                                 Neues Passwort
                             </label>
                             <input
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
                                 type="password"
-                                className="input-bordered input h-8 w-full"
+                                className="input-bordered input mt-1 h-8 w-full"
                             />
                         </div>
                         <div className="mb-2">
@@ -172,21 +211,40 @@ const ResetPassword = () => {
                                 Passwort bestätigen
                             </label>
                             <input
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
                                 type="password"
-                                className="input-bordered input h-8 w-full"
+                                className="input-bordered input mt-1 h-8 w-full"
                             />
                         </div>
                     </form>
-                    <div className="modal-action">
+                    <div className="modal-action gap-2">
                         <label
                             htmlFor="reset-password-modal"
                             className="btn-error btn-sm btn"
+                            onClick={() => {
+                                setCurrentPassword("");
+                                setNewPassword("");
+                                setConfirmPassword("");
+                            }}
                         >
                             Abbrechen
                         </label>
                         <label
+                            onClick={() => {
+                                void resetPassword();
+                            }}
                             htmlFor="reset-password-modal"
-                            className="btn-disabled btn-success btn-sm btn"
+                            className={`btn-success btn-sm btn ${
+                                currentPassword &&
+                                newPassword &&
+                                confirmPassword &&
+                                newPassword === confirmPassword
+                                    ? ""
+                                    : "btn-disabled"
+                            }`}
                         >
                             Ändern
                         </label>

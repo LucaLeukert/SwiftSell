@@ -19,7 +19,10 @@ const config = {
     defaultLocale: "en"
   },
   images: {
-    domains: ["images.clerk.dev", "i.imgur.com"]
+    domains: ["images.clerk.dev", "i.imgur.com", "uploadthing.com"]
+  },
+  experimental: {
+    esmExternals: false,
   },
   async redirects() {
     return [

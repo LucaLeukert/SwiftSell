@@ -41,7 +41,7 @@ const ProfileSettings = () => {
                 <title>Dein Profil</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className="h-screen w-full">
+            <main className="h-screen w-full bg-base-200">
                 <Navbar />
                 <BaseLayout user={user as UserResource} isLoaded={isLoaded}>
                     <section>
