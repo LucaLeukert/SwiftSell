@@ -8,7 +8,7 @@ import {
 const Test = () => {
     return (
         <div>
-            {/*<OrganizationProfile />*/}
+            <OrganizationProfile />
             <CreateOrganization />
         </div>
     );

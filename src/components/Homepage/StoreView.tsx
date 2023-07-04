@@ -22,16 +22,14 @@ function StoreView() {
                 <div className="mb-3 flex sm:gap-5 md:gap-20 lg:gap-24">
                     {stores.map((shop) => {
                         return (
-                            <>
-                                <ShopCard
-                                    shop={shop}
-                                    imageWidth={300}
-                                    imageHeight={200}
-                                    hasBadge={true}
-                                    badgeContent={"Empfohlen"}
-                                    key={shop.id}
-                                />
-                            </>
+                            <ShopCard
+                                shop={shop}
+                                imageWidth={300}
+                                imageHeight={200}
+                                hasBadge={true}
+                                badgeContent={"Empfohlen"}
+                                key={shop.id}
+                            />
                         );
                     })}
                 </div>

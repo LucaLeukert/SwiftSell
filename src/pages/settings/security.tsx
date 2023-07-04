@@ -15,6 +15,8 @@ import { type GetServerSideProps } from "next";
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
 import { AiOutlineEdit } from "react-icons/ai";
 import toast from "react-hot-toast";
+import { MdOutlineSecurity } from "react-icons/md";
+import { FiSettings } from "react-icons/fi";
 
 dayjs.extend(relativeTime);
 dayjs.locale("de");
@@ -64,73 +66,87 @@ const Security = () => {
             <main className="h-screen w-full overflow-y-hidden bg-base-200">
                 <Navbar />
                 <BaseLayout user={user as UserResource} isLoaded={isLoaded}>
-                    <section className="flex h-full flex-col">
-                        <h1 className="text-2xl">Sicherheit</h1>
-                        <div className="divider my-2" />
+                    <>
+                        <div className="breadcrumbs text-sm">
+                            <ul>
+                                <li>
+                                    <FiSettings className="mr-2 h-4 w-4" />
+                                    <span>Konto</span>
+                                </li>
+                                <li>
+                                    <MdOutlineSecurity className="mr-2 h-4 w-4" />
+                                    <span>Sicherheit und Datenschutz</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <section className="flex h-full flex-col">
+                            <h1 className="text-2xl">Sicherheit</h1>
+                            <div className="divider my-2" />
 
-                        <div className="flex w-full max-w-2xl flex-col gap-6">
-                            <dl>
-                                <dt>
-                                    <label className="text-lg">
-                                        Dein Passwort
-                                    </label>
-                                </dt>
-                                <dd>
-                                    <div className="flex flex-col gap-1.5">
-                                        <p className="input-bordered input flex h-10 max-w-2xl cursor-not-allowed items-center justify-between bg-base-300 text-xl text-slate-200">
-                                            <span>{"•".repeat(10)}</span>
+                            <div className="flex w-full max-w-2xl flex-col gap-6">
+                                <dl>
+                                    <dt>
+                                        <label className="text-lg">
+                                            Dein Passwort
+                                        </label>
+                                    </dt>
+                                    <dd>
+                                        <div className="flex flex-col gap-1.5">
+                                            <p className="input-bordered input flex h-10 max-w-2xl cursor-not-allowed items-center justify-between bg-base-300 text-xl text-slate-200">
+                                                <span>{"•".repeat(10)}</span>
+                                                <label
+                                                    htmlFor="reset-password-modal"
+                                                    className="btn-ghost btn-sm btn w-[32px] p-0"
+                                                >
+                                                    <AiOutlineEdit className="h-2/3 w-2/3" />
+                                                </label>
+                                            </p>
+
                                             <label
                                                 htmlFor="reset-password-modal"
-                                                className="btn-ghost btn-sm btn w-[32px] p-0"
+                                                className="btn-error btn-sm btn mt-2 max-w-[200px]"
                                             >
-                                                <AiOutlineEdit className="h-2/3 w-2/3" />
+                                                Passwort ändern
                                             </label>
-                                        </p>
 
-                                        <label
-                                            htmlFor="reset-password-modal"
-                                            className="btn-error btn-sm btn mt-2 max-w-[200px]"
-                                        >
-                                            Passwort ändern
+                                            <ResetPasswordModal
+                                                user={user as UserResource}
+                                            />
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl>
+                                    <dt className="mb-1.5">
+                                        <label className="text-lg">
+                                            Deine Geräte
                                         </label>
-
-                                        <ResetPasswordModal
-                                            user={user as UserResource}
-                                        />
-                                    </div>
-                                </dd>
-                            </dl>
-
-                            <dl>
-                                <dt className="mb-1.5">
-                                    <label className="text-lg">
-                                        Deine Geräte
-                                    </label>
-                                </dt>
-                                <dd>
-                                    <div className="flex flex-1 flex-col gap-5">
-                                        {isLoadingSessions && (
-                                            <>
-                                                <SkeletonSessionCard />
-                                                <SkeletonSessionCard />
-                                            </>
-                                        )}
-                                        {sessions.map((session) => {
-                                            return (
-                                                <SessionCard
-                                                    key={session.id}
-                                                    session={session}
-                                                    currentSessionId={
-                                                        currentSession?.id as string
-                                                    }
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </dd>
-                            </dl>
-                        </div>
-                    </section>
+                                    </dt>
+                                    <dd>
+                                        <div className="flex flex-1 flex-col gap-5">
+                                            {isLoadingSessions && (
+                                                <>
+                                                    <SkeletonSessionCard />
+                                                    <SkeletonSessionCard />
+                                                </>
+                                            )}
+                                            {sessions.map((session) => {
+                                                return (
+                                                    <SessionCard
+                                                        key={session.id}
+                                                        session={session}
+                                                        currentSessionId={
+                                                            currentSession?.id as string
+                                                        }
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </section>
+                    </>
                 </BaseLayout>
             </main>
         </>

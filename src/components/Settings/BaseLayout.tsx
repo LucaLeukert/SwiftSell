@@ -5,6 +5,11 @@ import { useRouter } from "next/router";
 import { type UserResource } from "@clerk/types";
 import { type NextPage } from "next";
 import { useOrganization } from "@clerk/nextjs";
+import { type Url } from "next/dist/shared/lib/router/router";
+import { AiOutlineCreditCard, AiOutlineUser } from "react-icons/ai";
+import { MdOutlineCreate, MdOutlineSecurity } from "react-icons/md";
+import { FiSettings, FiUsers } from "react-icons/fi";
+import { HiOutlineEnvelopeOpen } from "react-icons/hi2";
 
 export const BaseLayout = (props: {
     children: ReactElement;
@@ -13,7 +18,7 @@ export const BaseLayout = (props: {
 }) => {
     return (
         <div
-            className="h-[calc(100%-80px)] w-full bg-base-200"
+            className="h-[calc(100%-80px)] w-full"
             style={{ flexFlow: "column" }}
         >
             <div className="flex h-full flex-col sm:mx-5 sm:p-1 md:mx-10 md:p-5 lg:mx-40 lg:p-7">
@@ -57,7 +62,7 @@ export const BaseLayout = (props: {
                                         ({props.user?.username as string})
                                     </span>
                                 </h1>
-                                <span>Ihr persönliches Konto</span>
+                                <span>Einstellungen</span>
                             </>
                         )}
                     </div>
@@ -65,22 +70,21 @@ export const BaseLayout = (props: {
                 <div className="flex h-full flex-row">
                     <div className="mr-9 w-1/2 min-w-[200px] max-w-[320px] text-white">
                         <nav>
+                            <div>
+                                <h3 className="my-1 pl-1 text-sm text-slate-500">
+                                    Konto
+                                </h3>
+                            </div>
                             <ul className="flex flex-col gap-1">
                                 <ValidatePath
-                                    name="Öffentliches Profil"
+                                    name="Profil"
                                     expectedPath="profile"
                                     redirectPath="/settings/profile"
                                     equalClassName="bg-stone-600 bg-opacity-20"
                                     unequalClassName=""
-                                />
-
-                                <ValidatePath
-                                    name="Konto"
-                                    expectedPath="account"
-                                    redirectPath="/settings/account"
-                                    equalClassName="bg-stone-600 bg-opacity-20"
-                                    unequalClassName=""
-                                />
+                                >
+                                    <AiOutlineUser />
+                                </ValidatePath>
 
                                 <ValidatePath
                                     name="Sicherheit und Datenschutz"
@@ -88,9 +92,9 @@ export const BaseLayout = (props: {
                                     redirectPath="/settings/security"
                                     equalClassName="bg-stone-600 bg-opacity-20"
                                     unequalClassName=""
-                                />
-
-                                <li className="divider my-0" />
+                                >
+                                    <MdOutlineSecurity />
+                                </ValidatePath>
 
                                 <ValidatePath
                                     name="Abrechnungspläne"
@@ -98,7 +102,9 @@ export const BaseLayout = (props: {
                                     redirectPath="/settings/billing"
                                     equalClassName="bg-stone-600 bg-opacity-20"
                                     unequalClassName=""
-                                />
+                                >
+                                    <AiOutlineCreditCard />
+                                </ValidatePath>
 
                                 <li className="divider my-0" />
 
@@ -125,22 +131,36 @@ const OrganizationBaseLayout = () => {
             </div>
             <ul className="flex flex-col gap-1">
                 {!organization ? (
-                    <ValidatePath
-                        name="Erstellen"
-                        expectedPath="create"
-                        redirectPath="/settings/organization/create"
-                        equalClassName="bg-stone-600 bg-opacity-20"
-                        unequalClassName=""
-                    />
+                    <>
+                        <ValidatePath
+                            name="Erstellen"
+                            expectedPath="create"
+                            redirectPath="/settings/organization/create"
+                            equalClassName="bg-stone-600 bg-opacity-20"
+                            unequalClassName=""
+                        >
+                            <MdOutlineCreate />
+                        </ValidatePath>
+
+                        <ValidatePathInvitations
+                            name="Einladungen"
+                            expectedPath="invitations"
+                            redirectPath="/settings/organization/invitations"
+                            equalClassName="bg-stone-600 bg-opacity-20"
+                            unequalClassName=""
+                        />
+                    </>
                 ) : (
                     <>
                         <ValidatePath
-                            name="Mitglieder"
+                            name="Mitglieder und Berechtigungen"
                             expectedPath="members"
                             redirectPath="/settings/organization/members"
                             equalClassName="bg-stone-600 bg-opacity-20"
                             unequalClassName=""
-                        />
+                        >
+                            <FiUsers />
+                        </ValidatePath>
 
                         <ValidatePath
                             name="Einstellungen"
@@ -148,7 +168,9 @@ const OrganizationBaseLayout = () => {
                             redirectPath="/settings/organization/settings"
                             equalClassName="bg-stone-600 bg-opacity-20"
                             unequalClassName=""
-                        />
+                        >
+                            <FiSettings />
+                        </ValidatePath>
                     </>
                 )}
             </ul>
@@ -157,9 +179,10 @@ const OrganizationBaseLayout = () => {
 };
 
 type ValidatePathProps = {
+    children: ReactElement;
     name: string;
     expectedPath: string;
-    redirectPath: string;
+    redirectPath: Url;
     unequalClassName?: string;
     equalClassName?: string;
 };
@@ -180,7 +203,48 @@ const ValidatePath: NextPage<ValidatePathProps> = (props) => {
                 href={props.redirectPath}
                 className="flex flex-row items-center gap-2 p-1"
             >
+                <span className="ml-2">{props.children}</span>
+
                 <span>{props.name}</span>
+            </Link>
+        </li>
+    );
+};
+
+type ValidatePathInvitationsProps = {
+    name: string;
+    expectedPath: string;
+    redirectPath: string;
+    unequalClassName?: string;
+    equalClassName?: string;
+};
+
+const ValidatePathInvitations: NextPage<ValidatePathInvitationsProps> = (
+    props
+) => {
+    const router = useRouter();
+    const path = router.pathname.split("/").slice(-1)[0];
+    const { invitationList } = useOrganization();
+
+    const computedClassName = `rounded hover:bg-stone-600 hover:bg-opacity-30 ${
+        path === props.expectedPath
+            ? (props.equalClassName as string)
+            : (props.unequalClassName as string)
+    }`;
+
+    return (
+        <li className={computedClassName}>
+            <Link
+                href={props.redirectPath}
+                className="flex flex-row items-center gap-2 p-1"
+            >
+                <span className="ml-2">
+                    <HiOutlineEnvelopeOpen />
+                </span>
+                <span>{props.name}</span>
+                <span className="badge ml-auto">
+                    {!invitationList ? 0 : invitationList?.length}
+                </span>
             </Link>
         </li>
     );

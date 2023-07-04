@@ -19,7 +19,7 @@ const config = {
     defaultLocale: "en"
   },
   images: {
-    domains: ["images.clerk.dev", "i.imgur.com", "uploadthing.com"]
+    domains: ["images.clerk.dev", "i.imgur.com", "uploadthing.com", "via.placeholder.com"]
   },
   experimental: {
     esmExternals: false,

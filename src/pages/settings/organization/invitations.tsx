@@ -2,13 +2,14 @@ import Head from "next/head";
 import React from "react";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { BaseLayout } from "~/components/Settings/BaseLayout";
-import { UserResource } from "@clerk/types";
+import { type UserResource } from "@clerk/types";
 import { useUser } from "@clerk/nextjs";
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { FiSettings } from "react-icons/fi";
+import { CgOrganisation } from "react-icons/cg";
+import { HiOutlineEnvelopeOpen } from "react-icons/hi2";
 
-const BillingSettings = () => {
+const Invitations = () => {
     const { user, isLoaded } = useUser();
+
     return (
         <>
             <Head>
@@ -22,27 +23,20 @@ const BillingSettings = () => {
                         <div className="breadcrumbs text-sm">
                             <ul>
                                 <li>
-                                    <FiSettings className="mr-2 h-4 w-4" />
-                                    <span>Konto</span>
+                                    <CgOrganisation className="mr-2 h-4 w-4" />
+                                    <span>Organisation</span>
                                 </li>
                                 <li>
-                                    <AiOutlineCreditCard className="mr-2 h-4 w-4" />
-                                    <span>Abrechnung</span>
+                                    <HiOutlineEnvelopeOpen className="mr-2 h-4 w-4" />
+                                    <span>Einladungen</span>
                                 </li>
                             </ul>
                         </div>
                         <section>
-                            <h1 className="text-2xl">Abrechnungspläne</h1>
+                            <h1 className="text-2xl">
+                                {"Organisation's Einladungen"}
+                            </h1>
                             <div className="divider my-2" />
-                            <form>
-                                <div>
-                                    <dl>
-                                        <dt>
-                                            <label>Name</label>
-                                        </dt>
-                                    </dl>
-                                </div>
-                            </form>
                         </section>
                     </>
                 </BaseLayout>
@@ -51,4 +45,4 @@ const BillingSettings = () => {
     );
 };
 
-export default BillingSettings;
+export default Invitations;

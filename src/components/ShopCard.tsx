@@ -1,5 +1,5 @@
 import { Carousel } from "~/components/Carousel";
-import { type RouterOutputs } from "~/utils/api";
+import { api, type RouterOutputs } from "~/utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -25,6 +25,8 @@ export const ShopCard = ({
     /*const [width, setWidth] = useState(imageWidth);*/
     const indicator = hasBadge ? "indicator" : "";
     const router = useRouter();
+
+    const { mutate } = api.shop.getFeatured.useMutation();
 
     /*useEffect(() => {
         if (
@@ -73,6 +75,12 @@ export const ShopCard = ({
                         }}
                     >
                         zum Shop
+                    </button>
+
+                    <button onClick={() => {
+                        mutate({id: shop.id});
+                    }>
+
                     </button>
                 </div>
             </div>
