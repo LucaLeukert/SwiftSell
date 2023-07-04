@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { ProfilePicture } from "~/components/Navbar/ProfilePicture";
-import { AiOutlineShoppingCart } from "react-icons/all";
 import Link from "next/link";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export const StoreNavbar: NextPage = () => {
     return (
@@ -20,7 +20,7 @@ export const StoreNavbar: NextPage = () => {
                         >
                             <div className="indicator">
                                 <AiOutlineShoppingCart className="h-7 w-7" />
-                                <span className="badge badge-sm indicator-item">
+                                <span className="indicator-item badge badge-sm">
                                     8
                                 </span>
                             </div>
