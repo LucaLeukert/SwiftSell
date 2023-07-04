@@ -26,8 +26,6 @@ export const ShopCard = ({
     const indicator = hasBadge ? "indicator" : "";
     const router = useRouter();
 
-    const { mutate } = api.shop.getFeatured.useMutation();
-
     /*useEffect(() => {
         if (
           shop.card &&
@@ -49,7 +47,7 @@ export const ShopCard = ({
 
     return (
         <div
-            className={`card-normal card w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
+            className={`card card-normal w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
         >
             {hasBadge && badgeContent && (
                 <span className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">
@@ -75,12 +73,6 @@ export const ShopCard = ({
                         }}
                     >
                         zum Shop
-                    </button>
-
-                    <button onClick={() => {
-                        mutate({id: shop.id});
-                    }>
-
                     </button>
                 </div>
             </div>
