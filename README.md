@@ -10,10 +10,6 @@ SwiftSell is an ecommerce store hoster similar to Shopify. You can create and ma
 - Deploy your store on Vercel with serverless functions
 - Secure your store with Clerk authentication and authorization
 
-## Demo
-
-You can see a live demo of SwiftSell here: https://swiftsell.vercel.app/
-
 ## Installation
 
 To run SwiftSell locally, you need to have Node.js and PostgreSQL installed on your machine.
