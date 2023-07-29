@@ -330,7 +330,7 @@ const SessionCard = (props: {
                                 <p className="mr-[60px] text-lg font-bold text-slate-300">
                                     {latestActivity.deviceType}
                                 </p>
-                                <span className="indicator-middle badge indicator-item">
+                                <span className="indicator-item badge indicator-middle">
                                     Dieses Gerät
                                 </span>
                             </div>

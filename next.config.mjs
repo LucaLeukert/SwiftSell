@@ -22,7 +22,7 @@ const config = {
     domains: ["images.clerk.dev", "i.imgur.com", "uploadthing.com", "via.placeholder.com"]
   },
   experimental: {
-    esmExternals: false,
+    esmExternals: false
   },
   async redirects() {
     return [

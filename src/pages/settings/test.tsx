@@ -1,9 +1,4 @@
-import {
-    CreateOrganization,
-    OrganizationProfile,
-    useClerk,
-    UserProfile,
-} from "@clerk/nextjs";
+import { CreateOrganization, OrganizationProfile } from "@clerk/nextjs";
 
 const Test = () => {
     return (

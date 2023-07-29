@@ -74,38 +74,38 @@ const block: LayoutBlockConfig = {
             image: "https://via.placeholder.com/400x145",
             name: "Beispielprodukt",
             categories: ["Beispielkategorie"],
-            price: "0,00€"
+            price: "0,00€",
         },
         item_2: {
             id: "default",
             image: "https://via.placeholder.com/400x145",
             name: "Beispielprodukt",
             categories: ["Beispielkategorie"],
-            price: "0,00€"
-        }
+            price: "0,00€",
+        },
     },
     config: {
         title: {
             type: "string",
-            name: "Section title"
+            name: "Section title",
         },
         shop_name: {
             type: "string",
-            name: "Section description"
+            name: "Section description",
         },
         background_color: {
             type: "color",
-            name: "Hintergrundfarbe"
+            name: "Hintergrundfarbe",
         },
         item_1: {
             type: "item",
-            name: "Item 1"
+            name: "Item 1",
         },
         item_2: {
             type: "item",
-            name: "Item 2"
-        }
-    }
+            name: "Item 2",
+        },
+    },
 };
 
 export default block;

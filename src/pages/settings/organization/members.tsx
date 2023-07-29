@@ -128,7 +128,7 @@ const MemberShipView = (props: {
                                         userData?.lastName as string
                                     }`}
                                 </h1>
-                                <span className="indicator-middle badge indicator-item">
+                                <span className="indicator-item badge indicator-middle">
                                     Sie
                                 </span>
                             </div>

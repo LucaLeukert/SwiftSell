@@ -1,6 +1,7 @@
 #SwiftSell
 
-SwiftSell is an ecommerce store hoster similar to Shopify. You can create and manage your own online store with SwiftSell, using the T3 stack with TRPC, Next.js, Prisma, Tailwind and Clerk auth.
+SwiftSell is an ecommerce store hoster similar to Shopify. You can create and manage your own online store with
+SwiftSell, using the T3 stack with TRPC, Next.js, Prisma, Tailwind and Clerk auth.
 
 ## Features
 
@@ -28,7 +29,8 @@ To run SwiftSell locally, you need to have Node.js and PostgreSQL installed on y
 
 ## Contributing
 
-SwiftSell is an open source project and pull requests are welcome. Please make sure to follow the code of conduct and the contribution guidelines before submitting your pull request.
+SwiftSell is an open source project and pull requests are welcome. Please make sure to follow the code of conduct and
+the contribution guidelines before submitting your pull request.
 
 ## License
 

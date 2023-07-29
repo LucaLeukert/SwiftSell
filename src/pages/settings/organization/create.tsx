@@ -55,7 +55,7 @@ const Create = () => {
                                         >
                                             <button
                                                 onClick={() => setImage("")}
-                                                className="badge-error badge indicator-item h-5 w-5 p-0 shadow"
+                                                className="indicator-item badge-error badge h-5 w-5 p-0 shadow"
                                             >
                                                 <AiOutlineClose />
                                             </button>

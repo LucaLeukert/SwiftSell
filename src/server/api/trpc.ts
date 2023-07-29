@@ -17,7 +17,6 @@ import { Redis } from "@upstash/redis";
  *
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
-
 import { prisma } from "~/server/db";
 
 /**

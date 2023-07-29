@@ -20,7 +20,7 @@ const hbs = `
 
 const productionDocument = {
     hbs,
-    name: "Default Preview (Bootstrap 4.5)"
+    name: "Default Preview (Bootstrap 4.5)",
 };
 
 export default productionDocument;

@@ -38,7 +38,7 @@ export const Item = ({
 
     return (
         <div
-            className={`card card-normal w-[${width}px] ${indicator} bg-slate-600 shadow-xl`}
+            className={`card-normal card w-[${width}px] ${indicator} bg-slate-600 shadow-xl`}
         >
             {/*          {hasBadge && badgeContent && (
             <span className="badge-accent badge indicator-item text-slate-200 shadow">

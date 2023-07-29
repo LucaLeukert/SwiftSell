@@ -1,7 +1,7 @@
 import { Carousel } from "~/components/Carousel";
-import { api, type RouterOutputs } from "~/utils/api";
+import { type RouterOutputs } from "~/utils/api";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export type FeaturedShop = RouterOutputs["shop"]["getFeatured"][number];
 export type JsonImages = {
@@ -47,10 +47,10 @@ export const ShopCard = ({
 
     return (
         <div
-            className={`card card-normal w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
+            className={`card-normal card w-[300px] ${indicator} flex-shrink-0 rounded-t-xl bg-slate-600 shadow`}
         >
             {hasBadge && badgeContent && (
-                <span className="badge-accent badge indicator-item text-slate-200 shadow sm:indicator-center lg:indicator-end">
+                <span className="indicator-item badge-accent badge text-slate-200 shadow sm:indicator-center lg:indicator-end">
                     {badgeContent}
                 </span>
             )}

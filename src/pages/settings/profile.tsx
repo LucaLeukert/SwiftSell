@@ -11,7 +11,7 @@ import Datepicker from "tailwind-datepicker-react";
 import { type GetServerSideProps } from "next";
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
 import { UserResource } from "@clerk/types";
-import { AiOutlineCreditCard, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
